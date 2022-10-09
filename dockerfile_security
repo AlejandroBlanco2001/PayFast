@@ -8,7 +8,7 @@ COPY ./services/security-api/*.env /app
 COPY ./services/security-api/prisma ./prisma
 
 RUN npm install
-#RUN npm run migrate
+RUN npm run migrate
 
 # Set up a default command
 CMD [ "npm","start" ]

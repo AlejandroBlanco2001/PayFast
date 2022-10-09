@@ -13,5 +13,5 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.listen(process.env.PORT, () => {
-  return console.log(`Express is listening at http://localhost:${process.env.PORT}`);
+  return console.log(`Queries API is listening at http://localhost:${process.env.PORT}`);
 });
