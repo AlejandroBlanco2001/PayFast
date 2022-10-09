@@ -17,4 +17,40 @@ model User {
   name    String?
   isAdmin Boolean @default(false)
   password String
+  metodospago Metodopago[]
+  transacciones Transaccion[]
 }
+
+model Metodopago {
+  id Int @id @default(autoincrement())
+  nombre String
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  banco Banco @relation(fields: [bancoId], references: [id])
+  bancoId Int
+  transacciones Transaccion[]
+}
+
+model Transaccion {
+  id Int @id @default(autoincrement())
+  monto Float
+  fecha DateTime
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  metodo Metodopago @relation(fields: [metodoId], references: [id])
+  metodoId Int
+}
+
+model Banco {
+  id Int @id @default(autoincrement())
+  nombre String
+  metodospago Metodopago[]
+}
+
+model Servicio {
+  id Int @id @default(autoincrement())
+  nombre String
+  descripcion String
+  estado Boolean
+}
+
