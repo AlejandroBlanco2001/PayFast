@@ -19,7 +19,8 @@ services:
   
   security:
     depends_on:
-      - database
+      database:
+        condition: service_started
     image: node:16.3.0
     build: 
       context: .

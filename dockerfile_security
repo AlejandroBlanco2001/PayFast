@@ -5,8 +5,9 @@ COPY ./services/security-api/package*.json /app
 COPY ./services/security-api/tsconfig.json /app
 COPY ./services/security-api/src ./src
 COPY ./services/security-api/*.env /app
-COPY ./services/security-api/prisma ./prisma
+COPY ./services/security-api/prisma/schema.prisma ./prisma/schema.prisma
 
+RUN apt-get update
 RUN npm install
 RUN npm run migrate
 

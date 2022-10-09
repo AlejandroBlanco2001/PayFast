@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {updateUser, deleteUser, getUser, getUsers} from '../controllers/users';
-import { verifyAdmin, verifyUser } from '../../utils/JWT';
+import { verifyAdmin, verifyUser } from '../utils/jwt';
 const router = Router();
 
 //CRUD operations
