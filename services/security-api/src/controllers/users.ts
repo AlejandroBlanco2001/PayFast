@@ -3,7 +3,7 @@ import express from 'express';
 
 const prisma = new PrismaClient();
 
-const getUser = async (req: express.Request, res: express.Response) => {
+const getUser = async (req: express.Request, res: express.Response, next) => {
     const id = parseInt(req.params.id);
     try {
         const user = await prisma.user.findUnique({
@@ -16,22 +16,20 @@ const getUser = async (req: express.Request, res: express.Response) => {
         }
         res.status(200).json({user});
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server error");
+        next(err)
     }
 }
 
-const getUsers = async (req: express.Request, res: express.Response) => {
+const getUsers = async (req: express.Request, res: express.Response, next) => {
     try {
         const users = await prisma.user.findMany();
         res.status(200).json({users});
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server error");
+        next(err)
     }
 }
 
-const updateUser = async (req: express.Request, res: express.Response) => {
+const updateUser = async (req: express.Request, res: express.Response, next) => {
     const id = parseInt(req.params.id);
     try {
         const user = await prisma.user.update({
@@ -48,12 +46,11 @@ const updateUser = async (req: express.Request, res: express.Response) => {
         });
         res.status(200).json({user});
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server error");
+        next(err)
     }
 }
 
-const deleteUser = async (req: express.Request, res: express.Response) => {
+const deleteUser = async (req: express.Request, res: express.Response, next) => {
     const id = parseInt(req.params.id);
     try {
         const user = await prisma.user.delete({
@@ -63,8 +60,7 @@ const deleteUser = async (req: express.Request, res: express.Response) => {
         });
         res.status(200).json({user});
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server error");
+        next(err)
     }
 }
 
