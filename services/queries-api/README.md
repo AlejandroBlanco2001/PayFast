@@ -1,2 +1,2 @@
 # PayFast-Backend
-Project backend for PayFast, the final project for Diseño de Software II made with Typescript, NodeJS and Express
+API for consulting data and basic CRUD for context entities as the Bank and the Payment methods

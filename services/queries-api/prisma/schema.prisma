@@ -29,6 +29,7 @@ model Metodopago {
   banco Banco @relation(fields: [bancoId], references: [id])
   bancoId Int
   tipo Tipo
+  saldo Int @default(0)
   transacciones Transaccion[]
   estado Boolean @default(true)
 }
@@ -36,7 +37,6 @@ model Metodopago {
 model Transaccion {
   id Int @id @default(autoincrement())
   fecha DateTime @default(now())
-
   monto Float
   sede String
   franquicia String
@@ -45,23 +45,24 @@ model Transaccion {
   userId Int
   metodo Metodopago @relation(fields: [metodoId], references: [id])
   metodoId Int
-  
+
   estado Estado
 }
 
 model Banco {
   id Int @id @default(autoincrement())
   nombre String
-  estado Boolean @default(true)
   metodospago Metodopago[]
+  servicios Servicio[]
 }
 
 model Servicio {
   id Int @id @default(autoincrement())
   nombre String
   descripcion String
-  saldo Int @default(0)
-  estado Boolean
+  banco Banco @relation(fields: [bancoId], references: [id])
+  bancoId Int
+  estado Boolean @default(true)
 }
 
 enum Tipo {
