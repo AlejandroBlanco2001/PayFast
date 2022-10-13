@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 const verifyToken = (req:express.Request, res: express.Response) => {
     jwt.verify(req.cookies.access_token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return 
         }
         req['user'] = decoded;
     });
@@ -15,6 +15,10 @@ const verifyToken = (req:express.Request, res: express.Response) => {
 
 const verifyAdmin = (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
+    if(!req['user']){
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
     if (req['user'].isAdmin) {
         next();
     } else {
@@ -24,8 +28,12 @@ const verifyAdmin = (req:express.Request, res: express.Response, next) => {
 
 const verifyUser = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
-
-    if (req['user'].id == req.params.userid || req['user'].isAdmin) {
+    if(!req['user']){
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    const userId = req.params.userid || req.body.userid;
+    console.log('userId: ',userId, " req['user'].id: ",req['user'].id)
+    if (req['user'].id == userId || req['user'].isAdmin) {
         next();
     } else {
         return res.status(403).json({ message: "Forbidden" });
@@ -35,15 +43,22 @@ const verifyUser = async (req:express.Request, res: express.Response, next) => {
 //verificar si un usuario es dueño de su método
 const verifyUserMetodo = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
-    const metodo = await prisma.metodopago.findMany({
-        where: {
-            id: parseInt(req.params.id),
+    if(!req['user']){
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    try{
+        const metodo = await prisma.metodopago.findMany({
+            where: {
+                id: parseInt(req.params.id),
+            }
+        });
+        if (req['user'].id == metodo[0]['userId'] || req['user'].isAdmin) {
+            next();
+        } else {
+            return res.status(403).json({ message: "Forbidden" });
         }
-    }); 
-    if (req['user'].id == metodo['userId'] || req['user'].isAdmin) {
-        next();
-    } else {
-        return res.status(403).json({ message: "Forbidden" });
+    }catch(err){
+        return res.status(403).json({ message: "Not payment method found with this id" });
     }
 };
 

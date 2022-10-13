@@ -3,6 +3,11 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+enum Estado {
+    Aprobado = 'Aprobado',
+    Rechazado = 'Rechazado',
+}
+
 export const createTransaccion = async (req: express.Request, res: express.Response, next) => {
     if(req.body.monto <= 0) {
         return res.status(400).json({message: "Monto must be greater than 0"});
@@ -10,7 +15,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
     
     try{
         //verificar estado de metodo de pago
-        const metodo = await prisma.metodo.findUnique({
+        const metodo = await prisma.metodopago.findUnique({
             where: {
                 id: req.body.metodoId,
             },
@@ -20,31 +25,29 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         }
 
         //verificar estado de servicio de transaccion
-        const servicio = await prisma.servicio.findUnique({
+        const servicio = await prisma.servicio.findMany({
             where: {
-                bancoId: metodo.bancoId,
+                bancoId: metodo['bancoId'],
                 descripcion: 'Transferencia',
             }
         });
-        if (!servicio.estado){
+        if (!servicio[0].estado){
             return res.status(404).json({message: "Servicio not available"});
         }
 
         //verificar saldo
-        let estado = 'Aprobado';
+        let estado = Estado.Aprobado;
         if(metodo.saldo < req.body.monto){
-            estado = 'Rechazado';
+            estado = Estado.Rechazado;
         }
 
         const transaccion = await prisma.transaccion.create({
             data: {
-                id: req.body.id,
-                fecha: req.body.fecha,
                 monto: req.body.monto,
                 sede: req.body.sede,
                 franquicia: req.body.franquicia,
                 nroCuotas: req.body.nroCuotas,
-                userId: req.body.userId,
+                userId: req.body.userid,
                 metodoId: req.body.metodoId,
                 estado: estado
             },

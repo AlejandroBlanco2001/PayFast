@@ -27,15 +27,15 @@ const verifyTransaccion = async (req:express.Request, res: express.Response, nex
     verifyToken(req, res);
     if(req['user'].id === req.body.userid){
         try{
-            const metodo = await prisma.transaccion.findMany({
+            const metodo = await prisma.metodopago.findUnique({
                 where: {
-                    userId: parseInt(req.body.userid),
+                    id: parseInt(req.body.metodoId),
                 }
             });
             if (req['user'].id == metodo['userId'] || req['user'].isAdmin) {
                 next();
             } else {
-                return res.status(403).json({ message: "This user don't correspond with the payment method user" });
+                return res.status(403).json({ message: "This payment method is not yours" });
             }
         }catch(err){
             console.log(err);

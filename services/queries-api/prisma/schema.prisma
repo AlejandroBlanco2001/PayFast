@@ -45,7 +45,6 @@ model Transaccion {
   userId Int
   metodo Metodopago @relation(fields: [metodoId], references: [id])
   metodoId Int
-
   estado Estado
 }
 
@@ -71,7 +70,6 @@ enum Tipo {
 }
 
 enum Estado {
-  pendiente
-  aprobado
-  rechazado
+  Aprobado
+  Rechazado
 }

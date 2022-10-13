@@ -16,10 +16,10 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use('api/transaccion', transaccionRouter);
+app.use('/api/transaccion', transaccionRouter);
 
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
-  return console.log(`Express is listening at http://localhost:${process.env.PORT}`);
+  return console.log(`Transactions API is listening at http://localhost:${process.env.PORT}`);
 });

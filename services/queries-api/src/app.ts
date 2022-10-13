@@ -9,7 +9,7 @@ import bancoRouter from "./routes/bancos";
 import metodoRouter from "./routes/metodos";
 import servicioRouter from "./routes/servicios";
 
-import { verifyUser, verifyAdmin } from './utils/jwt';
+import { verifyAdmin } from './utils/jwt';
 
 dotenv.config();
 
@@ -20,9 +20,9 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("api/bancos", bancoRouter);
-app.use("api/metodos", metodoRouter);
-app.use("api/servicios", verifyAdmin,servicioRouter);
+app.use("/api/bancos", bancoRouter);
+app.use("/api/metodos", metodoRouter);
+app.use("/api/servicios", verifyAdmin,servicioRouter);
 
 app.use(errorHandler);
 

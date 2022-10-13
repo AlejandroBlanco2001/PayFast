@@ -21,7 +21,8 @@ export const getMetodo = async (req: express.Request, res: express.Response, nex
 };
 
 export const getMetodosUsuario = async (req: express.Request, res: express.Response, next) => {
-    const id = parseInt(req.params.userid);
+    //verificar disponibilidad de servicio de consulta
+    const id = parseInt(req['user'].id);
     try {
         const metodos = await prisma.metodopago.findMany({
             where: {
@@ -40,7 +41,7 @@ export const createMetodo = async (req: express.Request, res: express.Response, 
             data: {
                 nombre: req.body.nombre,
                 saldo: req.body.saldo || undefined,
-                userId: req.body.usuarioId,
+                userId: req['user'].id,
                 bancoId: req.body.bancoId,
                 tipo: req.body.tipo,
             },
