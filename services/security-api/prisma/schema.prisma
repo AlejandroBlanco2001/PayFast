@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  username String  @unique
+  name    String?
+  isAdmin Boolean @default(false)
+  password String
+  metodospago Metodopago[]
+  transacciones Transaccion[]
+}
+
+model Metodopago {
+  id Int @id @default(autoincrement())
+  nombre String
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  banco Banco @relation(fields: [bancoId], references: [id])
+  bancoId Int
+  tipo Tipo
+  saldo Int @default(0)
+  transacciones Transaccion[]
+  estado Boolean @default(true)
+}
+
+model Transaccion {
+  id Int @id @default(autoincrement())
+  fecha DateTime @default(now())
+  monto Float
+  sede String
+  franquicia String
+  nroCuotas Int
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  metodo Metodopago @relation(fields: [metodoId], references: [id])
+  metodoId Int
+
+  estado Estado
+}
+
+model Banco {
+  id Int @id @default(autoincrement())
+  nombre String
+  metodospago Metodopago[]
+  servicios Servicio[]
+}
+
+model Servicio {
+  id Int @id @default(autoincrement())
+  nombre String
+  descripcion String
+  banco Banco @relation(fields: [bancoId], references: [id])
+  bancoId Int
+  estado Boolean @default(true)
+}
+
+enum Tipo {
+  debito
+  credito
+}
+
+enum Estado {
+  pendiente
+  aprobado
+  rechazado
+}
