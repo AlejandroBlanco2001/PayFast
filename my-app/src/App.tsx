@@ -1,12 +1,12 @@
 import React from "react";
-import PaymentOption from "./PaymentOptions";
-import PaymentValue from "./PaymentValue";
+import PaymentMenu from "./PaymentMenu";
 
 function App() {
+
+
   return (
     <div className="App">
-      <PaymentOption></PaymentOption>
-      <PaymentValue></PaymentValue>
+      <PaymentMenu></PaymentMenu>
     </div>
   );
 }
