@@ -14,6 +14,7 @@ $on-hover-grey : #6D6D6D;
 // Effects
 @import "./effects/hover.scss";
 
+
 body {
     margin: 0;
     font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -30,7 +31,11 @@ code {
 
 .main-wrapper {
     display: flex;
-    gap: 100px;
+    width: 100%;
+    height: 100%                        ;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-direction: row;
 }
 
 .payment-form {
@@ -40,15 +45,21 @@ code {
     justify-content: center; 
     align-items: center;
     background-color: $payment-methods-color;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;    
     border-radius: 15px;
     img {
         max-height: 140%;
     }
 }
 
+.all-menu{
+    display: block;
+    width: 60%;
+}
+
 .payment-menu-options{
     display: flex;
+    width: 100%;
 }
 
 .tab-option{
@@ -80,10 +91,9 @@ code {
 }
 
 .payment-menu {
-    margin-left: 170px;
-    margin-top: 300px;
-    background-color: red;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;    display: inline-block;
+    background-color: $white-background;
+    box-shadow: -6px 4px 4px 5px rgba(0, 0, 0, 0.25);
+    display: inline-block;
     height: 654px;
     width: 769px;
 }
@@ -139,5 +149,12 @@ code {
 }
 
 .bill{
+    height: 724px;
+    width: 387px;
     background-color: rgba(6,5,5,0.6);
+}
+
+.bill-info-text{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

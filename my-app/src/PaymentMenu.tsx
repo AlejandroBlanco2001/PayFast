@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Bill from "./Bill";
 import PaymentMethod from "./PaymentMethod";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { Input } from '@chakra-ui/react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCardAlt, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons'
@@ -24,7 +25,7 @@ export default function PaymentMenu() {
 
     return (
         <div className = "main-wrapper"> 
-            <div className="payment-menu">
+            <div className="all-menu">
                 <div className="payment-menu-options">
                     <div className="tab-option hvr-bob">
                         <FontAwesomeIcon icon={faCreditCardAlt}/>                    
@@ -39,21 +40,23 @@ export default function PaymentMenu() {
                         <h5> Other </h5>
                     </div>
                 </div>
-                <div className="payment-wrapper">
-                    <div className="flex-payment-methods">
-                        {paymentMethods.map((method,index) => {
-                            return <PaymentMethod key={index} image={method['image']} status={method['status']}></PaymentMethod>
-                        })}
-                    </div>
-                    <div className="discount-box">
-                        <div className="discount-box-text">
-                            <h4>Cupon</h4>
-                            <span>Ingrese algun codigo de descuento</span>
+                <div className="payment-menu">
+                    <div className="payment-wrapper">
+                        <div className="flex-payment-methods">
+                            {paymentMethods.map((method,index) => {
+                                return <PaymentMethod key={index} image={method['image']} status={method['status']}></PaymentMethod>
+                            })}
                         </div>
-                        <Input 
-                            placeholder='Ingrese un codigo de descuento' 
-                            size='lg'
-                            borderRadius="10px"/>
+                        <div className="discount-box">
+                            <div className="discount-box-text">
+                                <h4>Cupon</h4>
+                                <span>Ingrese algun codigo de descuento</span>
+                            </div>
+                            <Input 
+                                placeholder='Ingrese un codigo de descuento' 
+                                size='lg'
+                                borderRadius="10px"/>
+                        </div>
                     </div>
                 </div>
             </div>
