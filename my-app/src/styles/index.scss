@@ -1,0 +1,143 @@
+/*
+    Global Styles
+*/
+
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// Variables
+$payment-methods-color: #E0DCDC;
+$white-background : #FFFFFF;
+$form-input-gray-background: #D9D9D9;
+$on-hover-grey : #6D6D6D;
+
+// Effects
+@import "./effects/hover.scss";
+
+body {
+    margin: 0;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.main-wrapper {
+    display: flex;
+    gap: 100px;
+}
+
+.payment-form {
+    height: 162px;
+    width: 226px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    background-color: $payment-methods-color;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 15px;
+    img {
+        max-height: 140%;
+    }
+}
+
+.payment-menu-options{
+    display: flex;
+}
+
+.tab-option{
+    display: flex;
+    width: 191px;
+    height: 60px;
+    border-radius: 15px 15px 0px 0px;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    background-color: $form-input-gray-background;
+    z-index: 0;
+
+    h5{
+        font-size: 19px;
+    }
+    
+    svg{
+        font-size:25px;
+    }
+
+    &:hover{
+        cursor: pointer;
+        color: $white-background;
+        background-color: $on-hover-grey;
+        z-index: 1;
+    }
+
+}
+
+.payment-menu {
+    margin-left: 170px;
+    margin-top: 300px;
+    background-color: red;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;    display: inline-block;
+    height: 654px;
+    width: 769px;
+}
+
+.payment-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flex-payment-methods{
+    padding-top: 50px;
+    background-color: transparent;
+    display: flex;
+    width: 100%;
+    height: 80%;
+    padding-left: 25px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.discount-box{
+    height: 5%;
+    background-color: transparent;
+    display: flex;
+    width: 100%;
+    padding-left: 30px;
+    align-items: center;
+
+    input{
+        background-color: $form-input-gray-background;
+        margin-right: 25px;
+    }
+
+    input::placeholder{
+        text-align: center;
+    }
+
+}
+
+.discount-box-text{
+    width: 100%;
+    padding-bottom: 15px;
+    span{
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.6);
+    }
+    h4{
+        font-size: 24px;
+        font-weight: 600;
+    }
+}
+
+.bill{
+    background-color: rgba(6,5,5,0.6);
+}
