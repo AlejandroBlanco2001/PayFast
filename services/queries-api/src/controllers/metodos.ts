@@ -29,7 +29,26 @@ export const getMetodosUsuario = async (req: express.Request, res: express.Respo
                 userId: id,
             },
         });
-        res.status(200).json({metodos});
+        const metodos_promises = metodos.map(async metodo => {
+            const servicio = await prisma.servicio.findMany({
+                where: {
+                    bancoId: metodo['bancoId'],
+                    descripcion: 'Consulta',
+                }
+            });
+            if (!servicio[0].estado){
+                return {
+                    id: metodo['id'],
+                    nombre: metodo['nombre'],
+                    bancoId: metodo['bancoId'],
+                    descripcion: 'Servicio consulta no disponible',
+                };
+            }else{
+                return metodo;
+            }
+        });
+        const metodos_disponibles = await Promise.all(metodos_promises);
+        res.status(200).json({metodos_disponibles});
     } catch (err) {
         next(err)
     }

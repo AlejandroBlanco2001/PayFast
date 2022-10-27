@@ -8,11 +8,12 @@ enum Estado {
     Rechazado = 'Rechazado',
 }
 
-export const createTransaccion = async (req: express.Request, res: express.Response, next) => {
+export const createTransaccion = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    console.log(req.app.get('queue'));
     if(req.body.monto <= 0) {
         return res.status(400).json({message: "Monto must be greater than 0"});
     }
-    
+    let estado = Estado.Aprobado;
     try{
         //verificar estado de metodo de pago
         const metodo = await prisma.metodopago.findUnique({
@@ -32,11 +33,10 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
             }
         });
         if (!servicio[0].estado){
-            return res.status(404).json({message: "Servicio not available"});
+            return res.status(404).json({message: "Servicio Transferencia not available"});
         }
 
         //verificar saldo
-        let estado = Estado.Aprobado;
         if(metodo.saldo < req.body.monto){
             estado = Estado.Rechazado;
         }
@@ -54,6 +54,14 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         });
         res.status(201).json({transaccion});
     } catch (err) {
-        next(err)
+        req.app.get('queue').push({
+            monto: req.body.monto,
+            sede: req.body.sede,
+            franquicia: req.body.franquicia,
+            nroCuotas: req.body.nroCuotas,
+            userId: req.body.userid,
+            metodoId: req.body.metodoId,
+            estado: estado
+        });
     }
 };
