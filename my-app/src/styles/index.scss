@@ -17,6 +17,8 @@ $on-hover-grey : #6D6D6D;
 
 body {
     margin: 0;
+    padding-left: 300px;
+    padding-top: 200px;
     font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -29,132 +31,115 @@ code {
     monospace;
 }
 
-.main-wrapper {
-    display: flex;
-    width: 100%;
-    height: 100%                        ;
-    justify-content: space-evenly;
-    align-content: center;
-    flex-direction: row;
-}
-
-.payment-form {
-    height: 162px;
-    width: 226px;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    background-color: $payment-methods-color;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;    
-    border-radius: 15px;
-    img {
-        max-height: 140%;
-    }
-}
-
-.all-menu{
+.PaymentMenu{
     display: block;
-    width: 60%;
+    width: 1100px;
+    height: 900px;
 }
 
-.payment-menu-options{
+.PaymentBoxContainer{
+    background-color: white;
+    height: 850px;
+    box-shadow: -6px 4px 4px 5px rgba(0,0,0,0.25);
+    padding-top: 60px;
+}
+
+.PaymentCupon{
     display: flex;
-    width: 100%;
-}
-
-.tab-option{
-    display: flex;
-    width: 191px;
-    height: 60px;
-    border-radius: 15px 15px 0px 0px;
-    justify-content: center;
-    align-items: center;
-    gap:10px;
-    background-color: $form-input-gray-background;
-    z-index: 0;
-
-    h5{
-        font-size: 19px;
-    }
-    
-    svg{
-        font-size:25px;
-    }
-
-    &:hover{
-        cursor: pointer;
-        color: $white-background;
-        background-color: $on-hover-grey;
-        z-index: 1;
-    }
-
-}
-
-.payment-menu {
-    background-color: $white-background;
-    box-shadow: -6px 4px 4px 5px rgba(0, 0, 0, 0.25);
-    display: inline-block;
-    height: 654px;
-    width: 769px;
-}
-
-.payment-wrapper{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.flex-payment-methods{
-    padding-top: 50px;
-    background-color: transparent;
-    display: flex;
-    width: 100%;
-    height: 80%;
-    padding-left: 25px;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.discount-box{
-    height: 5%;
-    background-color: transparent;
-    display: flex;
     width: 100%;
-    padding-left: 30px;
-    align-items: center;
+    padding-top: 40px;
 
     input{
         background-color: $form-input-gray-background;
-        margin-right: 25px;
-    }
-
-    input::placeholder{
         text-align: center;
+        width: 490px;
+        height: 60px;
     }
 
+    input::placeholder {
+        color: #000000;
+        font-size:18px;
+        font-weight: 700;
+        font-family: "Raleway";
+    }
 }
 
-.discount-box-text{
+.PaymentCuponText{
     width: 100%;
-    padding-bottom: 15px;
-    span{
-        font-size: 18px;
-        color: rgba(0, 0, 0, 0.6);
-    }
-    h4{
-        font-size: 24px;
+    font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen";
+    font-weight: 400;
+    padding-left: 40px;
+
+    div{
+        font-size: 28px;
         font-weight: 600;
     }
+
+    span{
+        font-size: 16px;
+        letter-spacing: 2px;
+        color: rgba(0,0,0,0.6);
+    }
 }
 
-.bill{
-    height: 724px;
-    width: 387px;
-    background-color: rgba(6,5,5,0.6);
-}
-
-.bill-info-text{
+.PaymentBoxGrid{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr ;
+    gap: 60px 0px;
+    padding: 20px;
+}
+
+.PaymentMethodBox{
+    display: flex;
+    width: 300px;   
+    height: 200px;
+    background-color: $payment-methods-color;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    justify-content: center;
+
+    img{
+        height: 100%;
+    }
+
+    &:hover{
+        background-color: $on-hover-grey;
+    }
+}
+
+.Tabs_menu{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+
+    div{
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        background-color: $form-input-gray-background;
+        border-radius: 10px 10px 0px 0px;
+        width: 200px;
+        text-align: center;
+        font-size: 20px;
+        font-family: "Raleway";
+        padding-top: 10px;
+
+        &:hover{
+            background-color: $on-hover-grey;
+            color:white;
+        }
+
+        svg{
+            font-size: 23px;
+        }
+
+        svg::hover{
+            color: white;
+        }
+    }
 }

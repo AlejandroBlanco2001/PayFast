@@ -1,13 +1,11 @@
-import react, { useState } from 'react';
+import react, { useState } from 'react'
 
-
-export default function PaymentMethod(props: { image: string, status: boolean }) {
-  
-  const { image, status } = props;
-
-  return (  
-  <div className="payment-form">
-        <img src={image} alt="Payment method"></img>
+export default function PaymentMethod(props: { image: string, status: boolean, name: string }) {
+    
+  const { image, status, name} = props;
+  return (
+    <div className="PaymentMethodBox">
+      <img src={image} alt={name}></img>
     </div>
   );
 }
