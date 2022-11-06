@@ -11,6 +11,7 @@ export default function Bill(){
     const [name, setName] = useState('John Doe');
     const [expiry, setExpiry] = useState('12/18');
     const [cvc, setCVC] = useState('321');
+
     const [company, setCompany] = useState('Pagame');
     const [orderNumber, setOrderNumber] = useState('420');
     const [product, setProduct] = useState('Mountain Drew');
@@ -18,29 +19,24 @@ export default function Bill(){
     const [iva, setIVA] = useState(total*0.19);
 
     return(
-        <div className="bill">
-            <Cards
-                cvc={cvc}
-                expiry={expiry}
-                name={name}
-                number={number}
-            />
-            <div className="bill-info">
-                <div className="bill-info-text">
-                    <h4>Compañia</h4>
-                    <h4>{company}</h4>
-                    <h4>Numero de orden</h4>
-                    <h4>{orderNumber}</h4>
-                    <h4>Producto</h4>
-                    <h4>{product}</h4>
-                    <h4>IVA</h4>
-                    <h4>{iva}</h4>
+        <div className="bill-container">
+            BILL
+            <div className="bill-info-container">
+                <div className="bill-info">
+                    <div className="category">Compañia</div>
+                    <div className="value">{company}</div>
+                    <div className="category">Numero de Orden</div>
+                    <div className="value">{orderNumber}</div>
+                    <div className="category">Producto</div>
+                    <div className="value">{product}</div>
+                    <div className="category">IVA (19%)</div>
+                    <div className="value">{iva}</div>
                 </div>
-                <hr className="dashed-divider"></hr>
-                <div className="bill-total-pay">
-                    <h5>Tienes que pagar</h5>
-                    <h5>{total}</h5>
-                    <FontAwesomeIcon icon={faMoneyBill}/>                    
+            </div>
+            <div className="bill-cost-container">
+                <div className="bill-cost">
+                    <div>El total a pagar es</div>
+                    <div>420</div>
                 </div>
             </div>
         </div>

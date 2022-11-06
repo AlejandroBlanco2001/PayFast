@@ -1,7 +1,7 @@
 import PaymentMethod from './PaymentMethod';
 import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import { Input, InputGroup } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function PaymentMenu(){
