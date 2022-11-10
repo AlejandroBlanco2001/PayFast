@@ -46,7 +46,8 @@ code {
 .PaymentBoxContainer{
     background-color: white;
     height: 800px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;    padding-top: 60px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding-top: 60px;
 }
 
 .PaymentCupon{
@@ -156,6 +157,8 @@ code {
     display: block;
     background-color:rgba(6,5,5,0.6) ;
     width: 450px;
+    height: 700px;
+    margin-top:60px;
     border-radius: 45px;
 }
 
@@ -170,7 +173,7 @@ code {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 30px 100px;
+    gap: 30px 60px;
 }
 
 .bill-cost-container{
@@ -180,9 +183,23 @@ code {
     grid-template-rows: 1fr ;
     gap: 60px 0px;
     padding: 20px;
-    background-color: red;
     padding-left: 40px;
     font-family: "Raleway";
+
+    .bill-cost-icon{
+        justify-self: end;
+        align-self: center;
+        padding-right: 20px;
+
+        svg{
+            font-size: 45px;
+        }
+    }
+
+    .bill-cost{
+        justify-self: center;
+        align-self: center;
+    }
 }
 
 .bill-price{
@@ -192,18 +209,23 @@ code {
 }
 
 .category{
-    color: rgba(255,255,255,0.6)
+    color: rgba(255,255,255,0.6);
+    font-size:18px;
+    font-weight: 350;
 }
 
 .value{
     text-align: center;
     color: #FFFFFF;
+    font-size:18px;
+    justify-self: end;
+    font-weight: 350;
 }
 
 .divider{
     align-self: center;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     border: medium none;
     border-top: 3px dashed rgba(255,255,255,0.5);
 }

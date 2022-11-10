@@ -47,7 +47,9 @@ export default function Bill(){
                         <div className="decimal">.000</div>
                     </div>
                 </div>
-                <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
+                <div className="bill-cost-icon">
+                    <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
+                </div>
             </div>
         </div>
     )
