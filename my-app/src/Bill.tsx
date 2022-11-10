@@ -1,15 +1,15 @@
 import React, { useState, useEffect} from 'react';
 import Cards from 'react-credit-cards';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoneyBill } from '@fortawesome/free-solid-svg-icons'
-import 'react-credit-cards/es/styles-compiled.css'
+import { faMoneyBill, faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons'
+import 'react-credit-cards/lib/styles.scss'
 
 
 export default function Bill(){
 
     const [number, setNumber] = useState('5145876364470839');
     const [name, setName] = useState('John Doe');
-    const [expiry, setExpiry] = useState('12/18');
+    const [expire, setExpire] = useState('12/18');
     const [cvc, setCVC] = useState('321');
 
     const [company, setCompany] = useState('Pagame');
@@ -20,7 +20,12 @@ export default function Bill(){
 
     return(
         <div className="bill-container">
-            BILL
+            <Cards
+                number={number}
+                name={name}
+                expiry={expire}
+                cvc={cvc}
+            ></Cards>
             <div className="bill-info-container">
                 <div className="bill-info">
                     <div className="category">Compañia</div>
@@ -33,11 +38,16 @@ export default function Bill(){
                     <div className="value">{iva}</div>
                 </div>
             </div>
+            <hr className="divider"></hr>
             <div className="bill-cost-container">
                 <div className="bill-cost">
                     <div>El total a pagar es</div>
-                    <div>420</div>
+                    <div className="bill-price">
+                        <div className="integer">420</div>
+                        <div className="decimal">.000</div>
+                    </div>
                 </div>
+                <FontAwesomeIcon icon={faMoneyBill1Wave}></FontAwesomeIcon>
             </div>
         </div>
     )

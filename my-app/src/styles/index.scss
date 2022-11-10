@@ -45,9 +45,8 @@ code {
 
 .PaymentBoxContainer{
     background-color: white;
-    height: 850px;
-    box-shadow: -6px 4px 4px 5px rgba(0,0,0,0.25);
-    padding-top: 60px;
+    height: 800px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;    padding-top: 60px;
 }
 
 .PaymentCupon{
@@ -104,7 +103,6 @@ code {
     background-color: $payment-methods-color;
     margin: 10px;
     border-radius: 10px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease-in-out;
     justify-content: center;
 
@@ -150,15 +148,22 @@ code {
     }
 }
 
+.rccs__card {
+    rotate: -90deg;  
+}
+
 .bill-container{
     display: block;
     background-color:rgba(6,5,5,0.6) ;
-    width: 500px;
+    width: 450px;
+    border-radius: 45px;
 }
 
 .bill-info-container{
+    padding-top: 90px;
     display: flex;
     justify-content: center;
+    font-family: "Raleway";
 }
 
 .bill-info{
@@ -169,7 +174,21 @@ code {
 }
 
 .bill-cost-container{
+    color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr ;
+    gap: 60px 0px;
+    padding: 20px;
+    background-color: red;
+    padding-left: 40px;
+    font-family: "Raleway";
+}
 
+.bill-price{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
 }
 
 .category{
@@ -177,5 +196,33 @@ code {
 }
 
 .value{
+    text-align: center;
     color: #FFFFFF;
+}
+
+.divider{
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: medium none;
+    border-top: 3px dashed rgba(255,255,255,0.5);
+}
+
+.integer{
+    font-weight: 700;
+    font-size:40px;
+}
+
+.decimal{
+    font-weight: 700;
+    padding-bottom: 5px;
+    font-size: 21px;
+}
+
+.ticket-bullets{
+    overflow: hidden;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
