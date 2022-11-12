@@ -1,14 +1,15 @@
 import React from "react";
 import PaymentMenu from "./PaymentMenu";
 import Bill from "./Bill";
+import Register from "./SignUp";
+import Login from "./Login";  
 
 function App() {
 
 
   return (
     <div className="App">
-      <PaymentMenu></PaymentMenu>
-      <Bill></Bill>
+      <Login></Login>
     </div>
   );
 }

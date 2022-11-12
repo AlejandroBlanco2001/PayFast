@@ -1,6 +1,7 @@
 import PaymentMethod from './PaymentMethod';
+import MenuTab from './MenuTab';
 import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, InputGroup } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -13,22 +14,9 @@ export default function PaymentMenu(){
         {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'},
         {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'}]);
 
-    return (
+    return(
       <div className="PaymentMenu">
-        <div className="Tabs_menu">
-          <div className="Tabs_menu_item hvr-bob">
-            <FontAwesomeIcon icon={faCreditCard}></FontAwesomeIcon>
-            Credit Card
-          </div>
-          <div className="Tabs_menu_item hvr-bob">
-            <FontAwesomeIcon icon={faPiggyBank}></FontAwesomeIcon>
-            Debit Card
-          </div>
-          <div className="Tabs_menu_item hvr-bob">
-            <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
-            Other
-          </div>
-        </div>
+        <MenuTab opt="1"></MenuTab>
         <div className="PaymentBoxContainer">
           <div className='PaymentBoxGrid'>
             {paymentMethods.map((method,index) => {
