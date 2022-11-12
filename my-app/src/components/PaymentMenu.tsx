@@ -1,5 +1,5 @@
-import PaymentMethod from './PaymentMethod';
-import MenuTab from './MenuTab';
+import PaymentMethod from '../components/PaymentMethod';
+import MenuTab from '../components/MenuTab';
 import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
 import { Input, InputGroup } from '@chakra-ui/react'

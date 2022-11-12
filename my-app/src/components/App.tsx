@@ -1,8 +1,8 @@
 import React from "react";
 import PaymentMenu from "./PaymentMenu";
 import Bill from "./Bill";
-import Register from "./SignUp";
-import Login from "./Login";  
+import Register from "../pages/SignUp";
+import Login from "../pages/Login";  
 
 function App() {
 
