@@ -43,15 +43,56 @@ code {
     height: 100%;
 }
 
+.input-custom{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    hr{
+        border: 1px solid rgb(0,0,0);
+        width: 700px;
+    }
+}
+
+.text-input{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+}
+
 .decorative-container{
     display: inline-flex;
     height: 100vh;
     width: 50%;
     background-color: red;
-
+    align-items: center;
+    justify-content: center;
     img{
-        height: 30%;
-        width: 30%;
+        z-index: 2;
+        height: 45%;
+        width: 45%;
+        filter: drop-shadow(-10px 90px 4px rgba(0, 0, 0, 0.5));
+    }
+}
+
+.info-container{
+    
+    font-family: "Roboto";
+
+    .login-form{
+        padding-top: 40px;
+        padding-left: 100px;
+    }
+
+    h1{
+        font-size: 80px;
+        font-weight: 700;
+    }
+
+    span{
+        font-size:19px;
+        color: gray;
     }
 }
 
