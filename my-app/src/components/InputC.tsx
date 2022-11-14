@@ -1,19 +1,13 @@
 import React from 'react';
 
-export default function InputC(props: {placeholder: string, name: string, onChange: any}) {
+export default function InputC(props: {placeholder: string, name: string, onChange: any, type: string}) {
 
-    const onFocus = (event) => {
-        event.target.style = {
-            "background-color": "red"
-        }
-    }
-
-    const {placeholder, name, onChange} = props;
+    const {placeholder, name, onChange, type} = props;
     return (
         <div className="input-custom">
             <div className="text-input">
-                <h4>{placeholder}</h4>
-                <input type="text" placeholder={placeholder} name={name} onChange={onChange} onFocus={onFocus} ></input>
+                <h4>{placeholder.toUpperCase()}</h4>
+                <input type={type} placeholder={'Your ' + placeholder} name={name} onChange={onChange} ></input>
             </div>
             <hr></hr>
         </div>

@@ -35,12 +35,21 @@ code {
     gap: 300px;
 }
 
+.info-container{
+    height: 100%;
+    display: flex;
+}
+
 .login-section{
     margin: 0px;
     display: flex;
     flex-direction: row;
     width: 100%;
     height: 100%;
+
+    form {
+        justify-self: center;
+    }
 }
 
 .input-custom{
@@ -49,7 +58,7 @@ code {
     flex-direction: column;
     gap: 5px;
     hr{
-        border: 1px solid rgb(0,0,0);
+        border: 1px solid rgba(0,0,0,0.5);
         width: 700px;
     }
 }
@@ -59,13 +68,18 @@ code {
     flex-direction: row;
     gap: 30px;
 
+    input{
+        outline: 0px;
+        width: 100%;
+    }
+
 }
 
 .decorative-container{
     display: inline-flex;
     height: 100vh;
     width: 50%;
-    background-color: red;
+    background-image: url('../assets/background-login-register.svg');
     align-items: center;
     justify-content: center;
     img{
@@ -81,8 +95,23 @@ code {
     font-family: "Roboto";
 
     .login-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
         padding-top: 40px;
         padding-left: 100px;
+
+    }
+
+    form{
+        font-family: "Roboto";
+    }
+
+    button{
+        margin:auto;
+        display:block;
+        margin-top: 20px;
     }
 
     h1{

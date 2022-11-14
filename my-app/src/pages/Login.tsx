@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import InputC from '../components/InputC';
-import { Input, InputGroup, InputLeftAddon } from '@chakra-ui/input';
+import { Button, ButtonGroup } from '@chakra-ui/react'
+
 
 const KeyImage = require('../assets/keyImage.png');
 
@@ -38,16 +39,9 @@ export default function Login(){
                     <h1>Login</h1>
                     <span>Welcome to PayFast, pay fast, safe and easy </span>
                     <form onSubmit={sendForm} method='post' id="loginForm">
-                        <InputC placeholder="Username" name="fuser" onChange={handleInputChange}></InputC>
-                        <div className="login-input">
-                            <input onChange={handleInputChange} name="fuser" type="text" placeholder="Correo Electronico"></input>
-                        </div>
-                        <div className="login-input">
-                            <input onChange={handleInputChange} name="fpass" type="password" placeholder="Contraseña"></input>
-                        </div>
-                        <div className="login-button">
-                            <button type="submit" form="loginForm" value="Submit">Iniciar Sesión</button>
-                        </div>
+                        <InputC placeholder="Username" name="fuser" type="text" onChange={handleInputChange}></InputC>
+                        <InputC placeholder="Password" name="fpass" type="password" onChange={handleInputChange}></InputC>
+                        <Button type="submit" colorScheme='linkedin'>Login</Button>
                     </form>
                 </div>
             </div>
