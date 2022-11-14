@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import InputC from '../components/InputC';
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import Swal from 'sweetalert2';
+import { Button } from '@chakra-ui/react'
 
 
 const KeyImage = require('../assets/keyImage.png');
@@ -9,6 +11,7 @@ const KeyImage = require('../assets/keyImage.png');
 export default function Login(){
 
     const [data, setData] = useState({});
+    const navigate = useNavigate();
 
     const handleInputChange = (event) => {
         setData({
@@ -25,8 +28,13 @@ export default function Login(){
             username: data['fuser'],
             password: data['fpass']
         }).then((res) => {
-            console.log("LOGUEADO");
-        });
+            console.log("Taking you to the payment section");
+            navigate('../payment', {replace:true});
+        }).catch(e => {Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please check your username and your password',
+        })});
     }
 
     return(
@@ -41,6 +49,7 @@ export default function Login(){
                     <form onSubmit={sendForm} method='post' id="loginForm">
                         <InputC placeholder="Username" name="fuser" type="text" onChange={handleInputChange}></InputC>
                         <InputC placeholder="Password" name="fpass" type="password" onChange={handleInputChange}></InputC>
+                        <a href="/register">Create an account</a>
                         <Button type="submit" colorScheme='linkedin'>Login</Button>
                     </form>
                 </div>
