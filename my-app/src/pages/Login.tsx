@@ -37,7 +37,7 @@ export default function Login(){
             <div className="info-container">
                 <div className="login-form">
                     <h1>Login</h1>
-                    <span>Welcome to PayFast, pay fast, safe and easy </span>
+                    <span>Welcome to PayFast, a new fast, safe and easy way to pay </span>
                     <form onSubmit={sendForm} method='post' id="loginForm">
                         <InputC placeholder="Username" name="fuser" type="text" onChange={handleInputChange}></InputC>
                         <InputC placeholder="Password" name="fpass" type="password" onChange={handleInputChange}></InputC>

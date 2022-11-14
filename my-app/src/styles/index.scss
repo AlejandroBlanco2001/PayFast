@@ -90,19 +90,33 @@ code {
     }
 }
 
-.info-container{
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 40px;
+    padding-left: 100px;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 40px;
+    padding-left: 100px;
     
+    form{
+        align-self: center;
+    }
+
+}
+
+.info-container{    
     font-family: "Roboto";
 
-    .login-form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100vh;
-        padding-top: 40px;
-        padding-left: 100px;
-
-    }
 
     form{
         font-family: "Roboto";
