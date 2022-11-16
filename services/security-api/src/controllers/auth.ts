@@ -28,7 +28,8 @@ const register = async (req: express.Request, res: express.Response, next) => {
 }
 
 const login = async (req: express.Request, res: express.Response, next) => {
-    const { username, password } = req.body;
+    const username = req.query.username as string;
+    const password = req.query.password as string;
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -48,12 +49,10 @@ const login = async (req: express.Request, res: express.Response, next) => {
             id: user.id,
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res
-        .cookie("access_token", token, {
+        res.cookie("token", token, {
             httpOnly: true, //It does not allow any other site to access the cookie
-        })
-        .status(200)
-        .json({ "token": token });
+        });
+        res.json({ token });
     } catch (err) {
         next(err)
     }

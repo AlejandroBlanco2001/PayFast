@@ -8,6 +8,10 @@ import { Button } from '@chakra-ui/react'
 
 const KeyImage = require('../assets/keyImage.png');
 
+const api = axios.create({
+    withCredentials: true,
+})
+
 export default function Login(){
 
     const [data, setData] = useState({});
@@ -20,16 +24,15 @@ export default function Login(){
         });
     };
     
-    const sendForm = (event) => {
+    const sendForm = (event) =>{
         event.preventDefault();
         console.log("Sending data ..." + data['fuser'] + " " + data['fpass']);
-        axios
-        .post("http://localhost:8000/api/auth/login",{
+        api
+        .get("http://localhost:8000/api/auth/login",{ params: {
             username: data['fuser'],
             password: data['fpass']
-        }).then((res) => {
+        }}).then((res) => {
             console.log("Taking you to the payment section");
-            localStorage.setItem('token', res.data.token);
             navigate('../payment', {replace:true});
         }).catch(e => {Swal.fire({
             icon: 'error',
