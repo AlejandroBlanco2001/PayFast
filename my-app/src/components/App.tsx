@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />}></Route> 
         <Route path="register" element={<Register />}></Route> 
-        <Route path="payment-method" element={<Payment />}></Route> 
+        <Route path="payment" element={<Payment />}></Route> 
         <Route path="checking" element={<Checking />}></Route> 
       </Routes>
     </BrowserRouter>

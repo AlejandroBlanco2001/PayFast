@@ -53,7 +53,7 @@ const login = async (req: express.Request, res: express.Response, next) => {
             httpOnly: true, //It does not allow any other site to access the cookie
         })
         .status(200)
-        .json({ message: `Logged in! Welcome ${user.name}` });
+        .json({ "token": token });
     } catch (err) {
         next(err)
     }

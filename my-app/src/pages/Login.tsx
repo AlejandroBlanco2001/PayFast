@@ -24,11 +24,12 @@ export default function Login(){
         event.preventDefault();
         console.log("Sending data ..." + data['fuser'] + " " + data['fpass']);
         axios
-        .post("http://localhost:9000/api/auth/login",{
+        .post("http://localhost:8000/api/auth/login",{
             username: data['fuser'],
             password: data['fpass']
         }).then((res) => {
             console.log("Taking you to the payment section");
+            localStorage.setItem('token', res.data.token);
             navigate('../payment', {replace:true});
         }).catch(e => {Swal.fire({
             icon: 'error',

@@ -3,25 +3,7 @@ import { faCreditCard, faPiggyBank, faEllipsis, faBank } from '@fortawesome/free
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function MenuTab(props: any = {opt: Number}){
-
-    /*
-    * opt: 0 = Selecting bank
-    * opt: 1 = Selecting metho
-    */
-    const { opt } = props;
-
-    function generateMenu() {
-        if (opt == 0){
-            return(
-            <div className="Tabs_menu">
-                <div className="Tabs_menu_item hvr-bob">
-                    <FontAwesomeIcon icon={faBank}></FontAwesomeIcon>
-                        Selecting Bank
-                </div>
-            </div>
-            )
-        }else{
-            return (
+    return(
             <div className="Tabs_menu">
                 <div className="Tabs_menu_item hvr-bob">
                     <FontAwesomeIcon icon={faCreditCard}></FontAwesomeIcon>
@@ -35,13 +17,6 @@ export default function MenuTab(props: any = {opt: Number}){
                     <FontAwesomeIcon icon={faEllipsis}></FontAwesomeIcon>
                     Other
                 </div>
-            </div>)
-        }
-    }
-
-    return(
-        <div>
-            {generateMenu()};
-        </div>
+            </div>
     )
 }

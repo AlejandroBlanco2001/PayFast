@@ -1,22 +1,36 @@
 import PaymentMethod from '../components/PaymentMethod';
 import MenuTab from '../components/MenuTab';
-import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { Input, InputGroup } from '@chakra-ui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function PaymentMenu(){
     
     let master_card_logo = "https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-mastercard-logo-png-vector-download-19.png";
+    let visa_logo = "https://www.freepnglogos.com/uploads/visa-card-logo-9.png";
+    let american_express_logo = "https://logodownload.org/wp-content/uploads/2014/04/amex-american-express-logo-0.png";
 
     const [paymentMethods, setPaymentMethods] = useState([
-        {'image': master_card_logo, 'status': true, 'name': 'visa'},{'image': master_card_logo, 'status': true, 'name': 'visa'},
-        {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'},
+      {'image': master_card_logo, 'status': true, 'name': 'visa'},{'image': visa_logo, 'status': true, 'name': 'visa'},
+        {'image': american_express_logo, 'status': true, 'name': 'american'}, {'image': master_card_logo, 'status': true, 'name': 'visa'},
         {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'}]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/metodos/user/',{withCredentials: true})
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    },[])
 
     return(
       <div className="PaymentMenu">
-        <MenuTab opt="1"></MenuTab>
+        <MenuTab></MenuTab>
         <div className="PaymentBoxContainer">
           <div className='PaymentBoxGrid'>
             {paymentMethods.map((method,index) => {

@@ -51,9 +51,9 @@ export default function SignUp(){
                     </div>
                     <form onSubmit={sendForm} method='post' id="loginForm">
                         <InputC placeholder="Name" name="fname" type="text" onChange={handleInputChange}></InputC>
-                        <InputC placeholder="Email" name="femail" type="password" onChange={handleInputChange}></InputC>
+                        <InputC placeholder="Email" name="femail" type="text" onChange={handleInputChange}></InputC>
                         <InputC placeholder="Username" name="fuser" type="text" onChange={handleInputChange}></InputC>
-                        <InputC placeholder="Password" name="fpass" type="text" onChange={handleInputChange}></InputC>
+                        <InputC placeholder="Password" name="fpass" type="password" onChange={handleInputChange}></InputC>
                         <a href="/">Go back to login</a>
                         <Button type="submit" colorScheme='linkedin'>SIgn Up</Button>
                     </form>

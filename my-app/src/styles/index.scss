@@ -141,6 +141,14 @@ code {
     }
 }
 
+.payment-section{
+    display: flex;
+    display: row;
+    padding-left: 40px;
+    padding-top: 60px;
+    gap: 70px;
+}
+
 .PaymentMenu{
     display: block;
     width: 1100px;
@@ -150,7 +158,8 @@ code {
 .PaymentBoxContainer{
     background-color: white;
     height: 800px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 1000px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     padding-top: 60px;
 }
 
@@ -163,7 +172,7 @@ code {
     input{
         background-color: $form-input-gray-background;
         text-align: center;
-        width: 490px;
+        width: 450px;
         height: 60px;
     }
 
@@ -194,10 +203,10 @@ code {
 }
 
 .PaymentBoxGrid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr ;
+    display: flex;
+    flex-direction: row;
     gap: 60px 0px;
+    flex-wrap: wrap;
     padding: 20px;
 }
 
@@ -212,7 +221,8 @@ code {
     justify-content: center;
 
     img{
-        height: 100%;
+        object-fit: contain;
+        width: 80%;
     }
 
     &:hover{
