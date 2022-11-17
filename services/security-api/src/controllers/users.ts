@@ -4,11 +4,11 @@ import express from 'express';
 const prisma = new PrismaClient();
 
 const getUser = async (req: express.Request, res: express.Response, next) => {
-    const id = parseInt(req.params.id);
+    const username = req.params.username;
     try {
         const user = await prisma.user.findUnique({
             where: {
-                id: id,
+                username: username,
             },
         });
         if (!user) {
