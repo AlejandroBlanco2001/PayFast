@@ -35,6 +35,19 @@ code {
     gap: 300px;
 }
 
+.profileCard {
+    display: flex;
+    width: 300px;
+    height: 400px;
+    flex-direction: column;
+    background-color: red;
+
+    svg{
+        width: 40%;
+        height: 40%;
+    }
+}
+
 .info-container{
     height: 100%;
     display: flex;

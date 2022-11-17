@@ -49,10 +49,10 @@ const login = async (req: express.Request, res: express.Response, next) => {
             id: user.id,
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res.cookie("token", token, {
-            httpOnly: true, //It does not allow any other site to access the cookie
+        res.cookie("access_token", token, {
+          httpOnly: true, //It does not allow any other site to access the cookie
         });
-        res.json({ token });
+        res.json({ "token": token, "id" : user.id});
     } catch (err) {
         next(err)
     }

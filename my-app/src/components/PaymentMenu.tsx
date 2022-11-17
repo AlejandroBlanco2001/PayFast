@@ -3,9 +3,11 @@ import MenuTab from '../components/MenuTab';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { faCreditCard, faPiggyBank, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { Input, InputGroup } from '@chakra-ui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const api = axios.create({
+    withCredentials: true,
+})
 
 export default function PaymentMenu(){
     
@@ -19,9 +21,10 @@ export default function PaymentMenu(){
         {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'}]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/metodos/user/',{withCredentials: true})
+        api.get('http://localhost:8080/api/metodos/user')
         .then(res => {
             console.log(res.data);
+            setPaymentMethods(res.data);
         })
         .catch(err => {
             console.log(err);
@@ -29,24 +32,24 @@ export default function PaymentMenu(){
     },[])
 
     return(
-      <div className="PaymentMenu">
-        <MenuTab></MenuTab>
-        <div className="PaymentBoxContainer">
-          <div className='PaymentBoxGrid'>
-            {paymentMethods.map((method,index) => {
-              return <PaymentMethod key={index} image={method.image} status={method.status} name={method.name}></PaymentMethod>
-            })}
-          </div>
-          <div className='PaymentCupon'>
-            <div className="PaymentCuponText">
-                <div className='PaymentCuponTitle'>Bonificación</div>
-                <span>Ingrese algun codigo de descuento</span>
+        <div className="PaymentMenu">
+          <MenuTab></MenuTab>
+          <div className="PaymentBoxContainer">
+            <div className='PaymentBoxGrid'>
+              {paymentMethods.map((method,index) => {
+                return <PaymentMethod key={index} image={method.image} status={method.status} name={method.name}></PaymentMethod>
+              })}
             </div>
-              <InputGroup>
-                <Input placeholder='ELPRECIOESCORRECTO' />
-              </InputGroup>
+            <div className='PaymentCupon'>
+              <div className="PaymentCuponText">
+                  <div className='PaymentCuponTitle'>Bonificación</div>
+                  <span>Ingrese algun codigo de descuento</span>
+              </div>
+                <InputGroup>
+                  <Input placeholder='ELPRECIOESCORRECTO' />
+                </InputGroup>
+            </div>
           </div>
         </div>
-      </div>
     );
 }
