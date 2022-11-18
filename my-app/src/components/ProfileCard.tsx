@@ -14,10 +14,14 @@ export default function ProfileCard(props : {
     return(
         <div className="profileCard">
             <Svg src={image}></Svg> 
+            <div>Full name</div>
             <div>{name}</div>
+            <div>Username</div>
             <div>{username}</div>
+            <div>Email</div>
             <div>{email}</div>
-            <div>{number}</div>
+            <div>Number of payment methods</div>
+            <div>{number.toString()}<div>
         </div>
     )
 }

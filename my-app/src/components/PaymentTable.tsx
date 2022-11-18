@@ -1,21 +1,25 @@
 import React, {useState} from 'react';
 import RowTransaction from './RowTransaction'
 
-export default function PaymentTable(){
+export default function PaymentTable(props: {transactions: any}) {
     
-    const [payments, setPayments] = useState([
-        {'id': '1', 'fecha': '2021-05-01', 'monto': '100', 'sede': 'Lima', 'franquicia': 'Visa', 'nroCoutas': '1', 'userId': '1', 'metodoId': '1', 'estado': 'Aprobado'},
-    ]);
+    const [transactions, setTransactions] = useState(props.transactions);
+
+    const transactionsList = () => {
+        if(transactions.length > 0){
+            return transactions.map((data: any, index) => {
+                return <RowTransaction key={index} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
+                monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
+            })
+        }
+        return <div>You dont have transactions</div>
+    }
 
     return(
         <div>
+            <h1>Transactions</h1>
             <div className="table">
-                <div>
-                    {payments.map((data,index) => {
-                        return <RowTransaction key={index} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']
-                        } monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
-                    })}
-                </div>
+                {transactionsList()}
             </div>
         </div>
     )
