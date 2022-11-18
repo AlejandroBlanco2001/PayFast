@@ -46,4 +46,18 @@ const verifyTransaccion = async (req:express.Request, res: express.Response, nex
     }
 };
 
-export { verifyAdmin, verifyTransaccion };
+const verifyUser = async (req:express.Request, res: express.Response, next) => {
+    verifyToken(req, res);
+    if(!req['user']){
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    const userId = req.params.userid || req.body.userid;
+    console.log('userId: ',userId, " req['user'].id: ",req['user'].id)
+    if (req['user'].id == userId || req['user'].isAdmin) {
+        next();
+    } else {
+        return res.status(403).json({ message: "Forbidden" });
+    }
+};
+
+export { verifyAdmin, verifyTransaccion, verifyUser };
