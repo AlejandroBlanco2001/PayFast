@@ -10,9 +10,12 @@ enum Estado {
 
 export const createTransaccion = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
     console.log(req.app.get('queue'));
+    //Monto mayor a 0
     if(req.body.monto <= 0) {
         return res.status(400).json({message: "Monto must be greater than 0"});
     }
+
+    //Verificar el estado del método de pago
     let estado = Estado.Aprobado;
     try{
         //verificar estado de metodo de pago
@@ -54,14 +57,39 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         });
         res.status(201).json({transaccion});
     } catch (err) {
-        req.app.get('queue').push({
-            monto: req.body.monto,
-            sede: req.body.sede,
-            franquicia: req.body.franquicia,
-            nroCuotas: req.body.nroCuotas,
-            userId: req.body.userid,
-            metodoId: req.body.metodoId,
-            estado: estado
+        if (err.status === 500) {
+            req.app.get('queue').push({
+                monto: req.body.monto,
+                sede: req.body.sede,
+                franquicia: req.body.franquicia,
+                nroCuotas: req.body.nroCuotas,
+                userId: req.body.userid,
+                metodoId: req.body.metodoId,
+                estado: estado
+            });
+        }
+    }
+};
+
+export const getTransaccionbyUser = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    const id: number = +req.params.id;
+    try {
+        const transacciones = await prisma.transaccion.findMany({
+            where: {
+                userId: id,
+            },
         });
+        res.status(200).json({transacciones});
+    } catch (err) {
+        next(err)
+    }
+};
+
+export const getTransacciones = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+        const transacciones = await prisma.transaccion.findMany();
+        res.status(200).json({transacciones});
+    } catch (err) {
+        next(err)
     }
 };
