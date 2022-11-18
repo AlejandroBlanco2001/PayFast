@@ -70,3 +70,26 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         }
     }
 };
+
+export const getTransaccionbyUser = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    const id: number = +req.params.id;
+    try {
+        const transacciones = await prisma.transaccion.findMany({
+            where: {
+                userId: id,
+            },
+        });
+        res.status(200).json({transacciones});
+    } catch (err) {
+        next(err)
+    }
+};
+
+export const getTransacciones = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+        const transacciones = await prisma.transaccion.findMany();
+        res.status(200).json({transacciones});
+    } catch (err) {
+        next(err)
+    }
+};
