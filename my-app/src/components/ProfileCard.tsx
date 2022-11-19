@@ -6,22 +6,21 @@ export default function ProfileCard(props : {
     name: string,
     username: string,
     email: string,
-    number: number,
 }){
 
-    const {image, name, username, email, number} = props;
+    const {image, name, username, email} = props;
 
     return(
         <div className="profileCard">
-            <Svg src={image}></Svg> 
-            <div>Full name</div>
-            <div>{name}</div>
-            <div>Username</div>
-            <div>{username}</div>
-            <div>Email</div>
-            <div>{email}</div>
-            <div>Number of payment methods</div>
-            <div>{number.toString()}<div>
+            <div className="profile-pic-frame">
+                <Svg src={image}></Svg> 
+            </div>
+            <div className="profile-tittle">Full name</div>
+            <div className="profile-value">{name}</div>
+            <div className="profile-tittle">Username</div>
+            <div className="profile-value">{username}</div>
+            <div className="profile-tittle">Email</div>
+            <div className="profile-value">{email}</div>
         </div>
     )
 }

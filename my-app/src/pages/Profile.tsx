@@ -21,7 +21,6 @@ export default function Profile(){
     const [transactions, setTransactions] = useState([]);
     const [methods, setMethods] = useState([]);
     const [avatar, setAvatar] = useState("");
-    const [number, setNumber] = useState(0);
 
     useEffect(()  => {
         // Get the user data
@@ -38,12 +37,12 @@ export default function Profile(){
         // Get transactions of the user
         api.get(`http://localhost:5000/api/transaccion/user/${id}`, { params: {
             "id": id    
-        }}).then((res) => {setNumber(res.data.length); setMethods(res.data)});
+        }}).then((res) => {setMethods(res.data)});
     },[])
 
     return (
         <div className="profile-section">
-            <ProfileCard image={avatar} email={user['email']} name={user['name']} username={user['username']} number={number}></ProfileCard>
+            <ProfileCard image={avatar} email={user['email']} name={user['name']} username={user['username']}></ProfileCard>
             <PaymentTable transactions={transactions} ></PaymentTable>
             <MethodsTable methods={methods}></MethodsTable>
         </div>
