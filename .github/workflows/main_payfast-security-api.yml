@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'payfast-security-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_705BDFC4B3C04EE3A23609C7B5F536A9 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A5B0F1F290E444038918765AFCC50B66 }}
           package: .
