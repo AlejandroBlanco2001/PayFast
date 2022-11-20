@@ -37,6 +37,7 @@ export default function Login(){
         }}).then((res) =>  {
             console.log(res.data)
             const id = res.data["id"];
+            localStorage.setItem('isLogged', "1");
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
             console.log(e);

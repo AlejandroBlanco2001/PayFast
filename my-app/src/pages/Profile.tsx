@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useNavigation } from 'react-router-dom';
 
 import ProfileCard from '../components/ProfileCard';
 import PaymentTable  from '../components/PaymentTable';
 import MethodsTable from '../components/MethodsTable';
+import { Button } from '@chakra-ui/react';
 
 
 
@@ -14,6 +15,7 @@ const api = axios.create({
 
 export default function Profile(){
 
+    const navigate = useNavigate();
     const location = useLocation();
     const id = location.state.user_id;
 
@@ -41,10 +43,13 @@ export default function Profile(){
     },[])
 
     return (
-        <div className="profile-section">
-            <ProfileCard image={avatar} email={user['email']} name={user['name']} username={user['username']}></ProfileCard>
-            <PaymentTable transactions={transactions} ></PaymentTable>
-            <MethodsTable methods={methods}></MethodsTable>
+        <div className="profile">
+            <div className="profile-section">
+                <ProfileCard image={avatar} email={user['email']} name={user['name']} username={user['username']}></ProfileCard>
+                <PaymentTable transactions={transactions} ></PaymentTable>
+                <MethodsTable methods={methods}></MethodsTable>
+            </div>
+            <Button colorScheme='linkedin' onClick={() => navigate('/payment') }>Pay Fast</Button>
         </div>
     )
 }

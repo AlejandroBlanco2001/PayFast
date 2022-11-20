@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactPaginate from 'react-paginate';
 import RowTransaction from './RowTransaction';
 import MethodCard from './MethodCard';
+
 function Items(props: {currentItems: any, type: Number}) {
 
     const {currentItems, type} = props;
@@ -9,11 +10,11 @@ function Items(props: {currentItems: any, type: Number}) {
     return (
         <div className="items">
         {currentItems && currentItems.map((data,index) => (
-        <div>
+        <div className="item">
             {type === 1 
             ? <RowTransaction key={index} isHeader={false} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
                     monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
-            : <MethodCard key={index} number={data}></MethodCard>
+            : <MethodCard key={index} number={data.numero} id={data.id}></MethodCard>
             }
 
         </div>
@@ -48,7 +49,7 @@ export default function PaginatedItems( props: {items: any, itemsPerPage: number
     };
 
     return (
-        <div> 
+        <div className="sectionPaginated"> 
             <Items currentItems={currentItems} type={type}></Items>
             <ReactPaginate
                 className="pagination"

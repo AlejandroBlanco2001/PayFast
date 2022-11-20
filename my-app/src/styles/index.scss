@@ -38,9 +38,9 @@ code {
 .profile-section{
     display: flex;
     width: 100%;
-    height: 1080px;
-    margin-left: 300px;
-    margin-top: 50px;
+    height: 900px;
+    justify-content: center;
+    padding-top: 70px;
     flex-direction: row;
     align-items: center;
 }
@@ -189,6 +189,16 @@ code {
     }
 }
 
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    button{
+        width: 50%;
+    }
+}
+
 .transactionsTable{
     display: flex;
     width: 900px;
@@ -198,6 +208,7 @@ code {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin-left: -20px;
     text-align: center;
+    z-index:1;
 
     h1{
         font-family: "Raleway", "Roboto";
@@ -257,6 +268,93 @@ code {
         text-decoration: none;
     }
 }
+
+.method-availables{
+    background-color: #95d1ec;
+    font-family: "Raleway", "Roboto";
+    border-radius: 20px;
+    margin-left: -10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    text-align: center;
+    width: 420px;
+    height: 700px;
+    z-index: 0;
+
+    h1{
+        font-size: 30px;
+        font-weight: 500;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+}
+
+.method-card{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    justify-content: center;
+    border-radius: 10px;
+    gap: 40px;
+
+    svg{
+        color: black;
+    
+        &:hover{
+            color: #596daf;
+        }
+    }
+
+
+
+    img{
+        width: 60px;
+        height: 60px;
+    }
+}
+
+.method-table{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+    align-items: center;
+
+    .sectionPaginated{
+        padding-top: 5px;
+        width: 100%;
+    }
+
+    .item{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .items{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.method-card__info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Raleway", "Roboto";
+    gap: 20px;
+}
+
+
 
 .payment-section{
     display: flex;
