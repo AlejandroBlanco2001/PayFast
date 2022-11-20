@@ -39,6 +39,8 @@ code {
     display: flex;
     width: 100%;
     height: 1080px;
+    margin-left: 300px;
+    margin-top: 50px;
     flex-direction: row;
     align-items: center;
 }
@@ -216,7 +218,7 @@ code {
     height: 60px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
 
     align-items: center;

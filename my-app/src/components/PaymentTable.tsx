@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import RowTransaction from './RowTransaction'
 import PaginatedItems from './PaginatedItems';
 
 
 export default function PaymentTable(props: {transactions: any}) {
     
-    const [transactions, setTransactions] = useState(props.transactions);
-
     const test =  [{
         "id": 1,
         "monto": 1000,
@@ -154,7 +152,7 @@ export default function PaymentTable(props: {transactions: any}) {
 
     const transactionsList = () => {
         if(test.length > 0){
-            return <PaginatedItems items={test} itemsPerPage={8}></PaginatedItems>
+            return <PaginatedItems items={test} itemsPerPage={8} type={1}></PaginatedItems>
         }
         return <div>You dont have transactions</div>
     }

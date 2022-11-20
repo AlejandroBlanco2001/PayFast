@@ -1,23 +1,30 @@
 import React, {useState} from 'react';
 import ReactPaginate from 'react-paginate';
 import RowTransaction from './RowTransaction';
+import MethodCard from './MethodCard';
+function Items(props: {currentItems: any, type: Number}) {
 
-function Items({ currentItems }) {
-  return (
-    <div className="items">
-    {currentItems && currentItems.map((data,index) => (
-      <div>
-        <RowTransaction key={index} isHeader={false} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
-                monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
-      </div>
-    ))}
-      </div>
-  );
+    const {currentItems, type} = props;
+
+    return (
+        <div className="items">
+        {currentItems && currentItems.map((data,index) => (
+        <div>
+            {type === 1 
+            ? <RowTransaction key={index} isHeader={false} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
+                    monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
+            : <MethodCard key={index} number={data}></MethodCard>
+            }
+
+        </div>
+        ))}
+        </div>
+    );
 }
 
-export default function PaginatedItems( props: {items: any, itemsPerPage: number, } ) {
+export default function PaginatedItems( props: {items: any, itemsPerPage: number, type: number} ) {
 
-    const {items, itemsPerPage} = props;
+    const {items, itemsPerPage, type} = props;
 
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
@@ -42,7 +49,7 @@ export default function PaginatedItems( props: {items: any, itemsPerPage: number
 
     return (
         <div> 
-            <Items currentItems={currentItems}></Items>
+            <Items currentItems={currentItems} type={type}></Items>
             <ReactPaginate
                 className="pagination"
                 breakLabel="..."

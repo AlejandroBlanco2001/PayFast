@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 export default function RowTransaction(props: {
     id: string,
@@ -19,21 +19,29 @@ export default function RowTransaction(props: {
         if(isHeader === true){
             return(
                 <div className="row row-header">
+                    <div className="table-header"> ID </div>
                     <div className="table-header"> Date </div>
-                    <div className="table-header"> State </div>
                     <div className="table-header"> Amount </div>
-                    <div className="table-header"> Fee </div>
-                    <div className="table-header"> Payment Method </div>
+                    <div className="table-header"> Site </div>
+                    <div className="table-header"> Franchise </div>
+                    <div className="table-header"> # Fee </div>
+                    <div className="table-header"> User ID </div>
+                    <div className="table-header"> Method ID </div>
+                    <div className="table-header"> Status </div>
                 </div>
             )
         }
         return (            
             <div className="row">
+                <div>{id}</div>
                 <div>{fecha}</div>
-                <div>{estado}</div>
                 <div>{monto}</div>
-                <div>{nroCoutas}</div>  
+                <div>{sede}</div>
+                <div>{franquicia}</div>
+                <div>{nroCoutas}</div> 
+                <div>{userId}</div>
                 <div>{metodoId}</div>
+                <div>{estado}</div>
             </div>
         );
         
