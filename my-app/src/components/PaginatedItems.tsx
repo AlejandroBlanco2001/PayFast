@@ -57,7 +57,7 @@ export default function PaginatedItems( props: {items: any, itemsPerPage: number
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
                 pageCount={pageCount}
-                renderOnZeroPageCount={null}
+                renderOnZeroPageCount={undefined}
             />        
         </div>
     )
