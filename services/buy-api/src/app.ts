@@ -26,15 +26,8 @@ app.use(express.json());
 
 app.use('/api/transaccion', transaccionRouter);
 
-app.set('queues', []);
-app.set('port', process.env.PORT || 5000);
-
 app.use(errorHandler);
 
-setInterval(async () => {
-    console.log(app.get('queues'));
-}, 1000);
-
-app.listen(app.get('port'), () => {
-  return console.log(`Transactions API is listening at http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  return console.log(`Transactions API is listening at http://localhost:${process.env.PORT || 5000}`);
 });
