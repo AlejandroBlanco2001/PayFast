@@ -27,6 +27,6 @@ app.use("/api/servicios", verifyAdmin,servicioRouter);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
-  return console.log(`Queries API is listening at http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT || 8080, () => {
+  return console.log(`Queries API is listening at http://localhost:${process.env.PORT || 8080}`);
 });

@@ -44,7 +44,7 @@ const verifyUser = async (
 //verificar si un usuario es dueño de su método
 const verifyTransaccion = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
-    const userID = req.body.id | +req.params.id | +req.query.id;
+    const userID = req.body.userid | +req.params.id | +req.query.id;
     if(req['user'].id === userID){
         try{
             const metodo = await prisma.metodopago.findUnique({

@@ -22,6 +22,8 @@ model metodopago {
   estado      Boolean         @default(true)
   saldo       Int             @default(0)
   tipo        metodopago_tipo
+  numero      String          @db.VarChar(16)
+  CVC         String          @db.VarChar(4)
   banco       banco           @relation(fields: [bancoId], references: [id], map: "Metodopago_bancoId_fkey")
   user        user            @relation(fields: [userId], references: [id], map: "Metodopago_userId_fkey")
   transaccion transaccion[]

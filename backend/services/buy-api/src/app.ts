@@ -28,6 +28,6 @@ app.use('/api/transaccion', transaccionRouter);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
-  return console.log(`Transactions API is listening at http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT || 5000, () => {
+  return console.log(`Transactions API is listening at http://localhost:${process.env.PORT || 5000}`);
 });

@@ -28,6 +28,6 @@ app.use('/api/users', userRoutes);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
-  return console.log(`Security API is listening at http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  return console.log(`Security API is listening at http://localhost:${process.env.PORT || 3000}`);
 });
