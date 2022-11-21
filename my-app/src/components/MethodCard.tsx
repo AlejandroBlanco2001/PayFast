@@ -43,12 +43,12 @@ export default function MethodCard(props: {number: string, id: string}){
                 confirmButtonText: 'Ok'
             });
         }).catch((err) => {
-            if(err.message === "Servicio de consulta no disponible"){
+            if(err.response.data.message === "Servicio de consulta no disponible"){
                 Swal.fire({
                     title: 'Oops...',
                     text: 'Service not available',
                     icon: 'error',
-                    confirmButtonText: ':( ok'
+                    confirmButtonText: ':('
                 })
             }
         })

@@ -38,7 +38,6 @@ export default function Login(){
             localStorage.setItem('isLogged', id);
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
-            console.log(e);
             Swal.fire({
             icon: 'error',
             title: 'Oops...',
