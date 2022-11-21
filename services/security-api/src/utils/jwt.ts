@@ -21,6 +21,7 @@ const verifyAdmin = (req:express.Request, res: express.Response, next) => {
 
 const verifyUser = (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
+    console.log(req.params.id);
     if (req['user'].id == req.params.id || req['user'].isAdmin) {
         next();
     } else {

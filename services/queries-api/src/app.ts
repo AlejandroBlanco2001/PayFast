@@ -16,9 +16,10 @@ dotenv.config();
 const app = express();
 
 //Middleware
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
 app.use(express.json());
+
 
 app.use("/api/bancos", bancoRouter);
 app.use("/api/metodos", metodoRouter);

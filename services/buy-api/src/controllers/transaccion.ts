@@ -72,7 +72,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
 };
 
 export const getTransaccionbyUser = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
-    const id: number = +req.params.id;
+    const id: number = +req.params.id || +req.body.id || +req.query.id;
     try {
         const transacciones = await prisma.transaccion.findMany({
             where: {
