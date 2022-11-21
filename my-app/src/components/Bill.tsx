@@ -5,18 +5,15 @@ import { faMoneyBill, faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons
 import 'react-credit-cards/lib/styles.scss'
 
 
-export default function Bill(){
+export default function Bill(props: {company: string, orderNumber: string, product: string, total: number, info: any}) {
 
-    const [number, setNumber] = useState('5145876364470839');
+    const {company, orderNumber, product, total, info} = props;
+    const number= info.cardNumber || '5145876364470839'
     const [name, setName] = useState('John Doe');
-    const [expire, setExpire] = useState('12/18');
-    const [cvc, setCVC] = useState('321');
+    const expire= info.expire || '12/18'
+    const cvc= info.cvc || '321'
 
-    const [company, setCompany] = useState('Pagame');
-    const [orderNumber, setOrderNumber] = useState('420');
-    const [product, setProduct] = useState('Mountain Drew');
-    const [total, setTotal] = useState(500);
-    const [iva, setIVA] = useState(total*0.19);
+    const iva = total * 0.19;
 
     return(
         <div className="bill-container">

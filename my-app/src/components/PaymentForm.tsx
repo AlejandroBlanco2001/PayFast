@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Bill from "./Bill";
-import PaymentMethod from "./PaymentMethod";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, DefaultIcon, Box, InputLeftElement, Grid, GridItem } from '@chakra-ui/react'
+import React, { useState, useEffect} from "react";
+import { InputLeftElement, Grid, GridItem } from '@chakra-ui/react'
 import { Input, InputGroup, InputRightElement, Button, Text } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VNumpad from "./VNumPad";
-import { faPiggyBank, faEllipsis, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons'
 import { faCreditCard } from '@fortawesome/free-regular-svg-icons'
-export default function PaymentForm() {
+export default function PaymentForm({onChange}: {onChange: any}) {
 
     const [number, setNumber] = useState('');
     const [name, setName] = useState('John Doe');
@@ -28,6 +25,15 @@ export default function PaymentForm() {
             func(target.value);
         };
     }
+
+    useEffect(() => {
+        onChange({
+            cardNumber: number,
+            expire: expiryMM + '/' + expiryYY,
+            cvc: cvc,
+            // company: company,
+        });
+    }, [number, expiryMM, expiryYY, cvc]);
     /* */
     return (
 
@@ -40,15 +46,16 @@ export default function PaymentForm() {
                 paddingLeft={25}
                 paddingBottom={50}
                 paddingRight={25}
+                marginTop="103px"
                 h='200px'
                 templateRows='repeat(5, 1fr)'
-                templateColumns='repeat(16, 1fr)'
+                templateColumns='repeat(8, 1fr)'
 
             >
                 <GridItem colStart={1} gridRowStart={1} colEnd={7} area={'header'}>
                     <div className="Payment-CN-text">
                         <h4 style={{ fontSize: 20 }}><b>Numero de la Tarjeta</b></h4>
-                        <Text color="gray.500">Ingrese los 13-16 digitos de su tarjeta.</Text>
+                        <Text color="gray.500" marginBottom={2}>Ingrese los 13-16 digitos de su tarjeta.</Text>
                         <div className="Payment">
                             <div className="Payment-CN">
 
@@ -73,29 +80,29 @@ export default function PaymentForm() {
                         </div>
                     </div>
                 </GridItem>
-                <GridItem colStart={1} colEnd={3} gridRowStart={2}>
+                <GridItem colStart={1} colEnd={3} gridRowStart={2} padding={4}>
                     <div className="Payment-CVC-text">
                         <h4><b>Numero del CVC</b></h4>
                         <Text color="gray.500">Ingrese los 3 o 4 digitos de su tarjeta.</Text>
                     </div>
                 </GridItem>
-                <GridItem colStart={1} colEnd={3} gridRowStart={3}>
+                <GridItem colStart={1} colEnd={3} gridRowStart={3} padding={4}>
                     <div className="Payment-expiry-text">
                         <h4><b>Fecha de Vencimiento</b></h4>
                         <Text color="gray.500">Ingrese la fecha de vencimiento</Text>
                     </div>
                 </GridItem>
-                <GridItem colStart={1} colEnd={3} gridRowStart={4}>
+                <GridItem colStart={1} colEnd={3} gridRowStart={4} padding={4}>
                     <div className="Payment-dynamic-text">
                         <h4><b>Clave dinamica</b></h4>
                         <Text color="gray.500">Ingrese su clave dinamica</Text>
                     </div>
                 </GridItem>
 
-                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={1}>
+                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={1} padding={4}>
 
                 </GridItem>
-                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={2}>
+                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={2} paddingTop={9}>
                     <div className="Payment">
                         <h4>
                             <InputGroup size='lg' >
@@ -121,7 +128,7 @@ export default function PaymentForm() {
                     </div>
 
                 </GridItem>
-                <GridItem colSpan={1} colStart={3} colEnd={4} gridRowStart={3}>
+                <GridItem colSpan={1} colStart={3} colEnd={4} gridRowStart={3} paddingTop={9}>
                     <div className="Payment">
                         <div>
                             <h4>
@@ -131,7 +138,9 @@ export default function PaymentForm() {
                                     placeholder={'MM'}
                                     onChange={withEvent(setExpiryMM)}
                                     size='lg'
-                                    type='month'
+                                    type="number"
+                                    max={12}
+                                    min={1}
                                     borderRadius="10px" _placeholder={{
                                         color: '#FFFFFF'
                                     }} color='white' />
@@ -140,7 +149,7 @@ export default function PaymentForm() {
                         </div>
                     </div>
                 </GridItem>
-                <GridItem colSpan={1} colStart={4} gridRowStart={3}>
+                <GridItem colSpan={1} colStart={4} gridRowStart={3} paddingTop={9}>
                     <div className="Payment">
                         <div>
                             <h4>
@@ -150,7 +159,7 @@ export default function PaymentForm() {
                         </div>
                     </div>
                 </GridItem>
-                <GridItem colSpan={1} colStart={5} gridRowStart={3}>
+                <GridItem colSpan={1} colStart={5} gridRowStart={3} paddingTop={9}>
                     <div className="Payment">
                         <div>
                             <h4>
@@ -160,7 +169,9 @@ export default function PaymentForm() {
                                     placeholder={'YY'}
                                     onChange={withEvent(setExpiryYY)}
                                     size='lg'
-                                    type='month'
+                                    type="number"
+                                    max={99}
+                                    min={1}
                                     borderRadius="10px" _placeholder={{
                                         color: '#FFFFFF'
                                     }} color='white' />
@@ -169,7 +180,7 @@ export default function PaymentForm() {
                         </div>
                     </div>
                 </GridItem>
-                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={4}>
+                <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={4} paddingTop={9}>
                     <div className="Payment">
 
                         <h4>
@@ -199,7 +210,7 @@ export default function PaymentForm() {
                     </div>
                 </GridItem>
 
-                <GridItem gridRowStart={6} colStart={1} colEnd={7}>
+                <GridItem gridRowStart={6} colStart={1} colEnd={7} padding={4}>
                     <Button boxShadow='2xl' bgColor={'#6ffd69'} color='white' width='100%' padding='4px' size='lg'>
                         <b>Pay Now</b>
                     </Button>

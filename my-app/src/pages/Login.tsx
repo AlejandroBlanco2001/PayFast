@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import {security_api} from "../utils/axios-apis";
 import { useNavigate } from "react-router-dom";
 import InputC from '../components/InputC';
 import Swal from 'sweetalert2';
@@ -7,10 +7,6 @@ import { Button } from '@chakra-ui/react'
 
 
 const KeyImage = require('../assets/keyImage.png');
-
-const api = axios.create({
-    withCredentials: true,
-})
 
 export default function Login(){
 
@@ -31,7 +27,7 @@ export default function Login(){
         console.log("Sending data ..." + data['fuser'] + " " + data['fpass']);
         const username = data['fuser'];
         const password = data['fpass'];
-        api.get("http://localhost:8000/api/auth/login",{ params: {
+        security_api.get("/api/auth/login",{ params: {
             username: username,
             password: password
         }}).then((res) =>  {

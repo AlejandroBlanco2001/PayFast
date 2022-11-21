@@ -12,6 +12,8 @@ dotenv.config();
 
 const app = express();
 
+app.set('port', process.env.PORT || 8000);
+
 //Middleware
 app.use(
   cors({
@@ -28,6 +30,6 @@ app.use('/api/users', userRoutes);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+app.listen(app.get('port'), () => {
   return console.log(`Security API is listening at http://localhost:${process.env.PORT}`);
 });

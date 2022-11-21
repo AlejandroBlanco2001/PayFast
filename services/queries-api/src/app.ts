@@ -15,6 +15,8 @@ dotenv.config();
 
 const app = express();
 
+app.set('port', process.env.PORT || 8080);
+
 //Middleware
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
@@ -27,6 +29,6 @@ app.use("/api/servicios", verifyAdmin,servicioRouter);
 
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+app.listen( app.get('port'), () => {
   return console.log(`Queries API is listening at http://localhost:${process.env.PORT}`);
 });
