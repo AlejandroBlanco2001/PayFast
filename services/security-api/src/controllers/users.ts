@@ -4,12 +4,12 @@ import express from 'express';
 const prisma = new PrismaClient();
 
 const getUser = async (req: express.Request, res: express.Response, next) => {
-    const username = req.params.username;
+    const id = +req.params.id;
     try {
         const user = await prisma.user.findUnique({
-            where: {
-                username: username,
-            },
+          where: {
+            id: id,
+          },
         });
         if (!user) {
             return res.status(404).json({message: "User not found"});

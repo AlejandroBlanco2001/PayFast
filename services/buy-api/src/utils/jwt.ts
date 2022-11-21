@@ -22,10 +22,30 @@ const verifyAdmin = (req:express.Request, res: express.Response, next) => {
     }
 };
 
+const verifyUser = async (
+    req: express.Request,
+    res: express.Response,
+    next
+    ) => {
+    verifyToken(req, res);
+    if (!req["user"]) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+    console.log(req.params);
+    const userId = req.params["id"] || req.body[""] || req.query["id"];
+    console.log("userId: ", userId, " req['user'].id: ", req["user"].id);
+    if (req["user"].id == userId || req["user"].isAdmin) {
+        next();
+    } else {
+        return res.status(403).json({ message: "Forbidden" });
+    }
+};
+
 //verificar si un usuario es dueño de su método
 const verifyTransaccion = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
-    if(req['user'].id === req.body.userid){
+    const userID = req.body.id | +req.params.id | +req.query.id;
+    if(req['user'].id === userID){
         try{
             const metodo = await prisma.metodopago.findUnique({
                 where: {
@@ -42,20 +62,6 @@ const verifyTransaccion = async (req:express.Request, res: express.Response, nex
             return res.status(403).json({ message: "Not payment method found with this id" });
         }
     }else{
-        return res.status(403).json({ message: "Forbidden" });
-    }
-};
-
-const verifyUser = async (req:express.Request, res: express.Response, next) => {
-    verifyToken(req, res);
-    if(!req['user']){
-        return res.status(401).json({ message: "Unauthorized" });
-    }
-    const userId = req.params.userid || req.body.userid;
-    console.log('userId: ',userId, " req['user'].id: ",req['user'].id)
-    if (req['user'].id == userId || req['user'].isAdmin) {
-        next();
-    } else {
         return res.status(403).json({ message: "Forbidden" });
     }
 };

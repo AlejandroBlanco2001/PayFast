@@ -5,7 +5,7 @@ const router = Router();
 
 //CRUD operations
 router.get('/', verifyAdmin,getUsers);
-router.get('/:username', verifyUser,getUser);
+router.get('/:id', verifyUser,getUser);
 router.put('/:id', verifyUser,updateUser);
 router.delete('/:id', verifyUser,deleteUser);
 
