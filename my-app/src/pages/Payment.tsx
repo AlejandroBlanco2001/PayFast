@@ -13,15 +13,16 @@ function getRandomInt(min, max) : number{
 export default function Payment() {
 
     const [paymentMethod, setPaymentMethod] = React.useState({});
-    const form = <PaymentForm onChange={setPaymentMethod}></PaymentForm>;
-    
-    const products = ["hola", "hola2", "hola3"];
-    
     
     const navigate = useNavigate();
     const location = useLocation();
     
     const bill = location.state.bill;
+    
+    const sendToProcess = () => {
+        navigate('/facturation', {state: {bill: bill, paymentMethod: paymentMethod}});
+    }
+    const form = <PaymentForm onChange={setPaymentMethod} sendTo={sendToProcess}></PaymentForm>;
 
     const isLogged = () => {
         if(localStorage.getItem('isLogged') === "1"){

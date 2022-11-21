@@ -31,11 +31,7 @@ export default function Login(){
         }).then((res) =>  {
             console.log(res)
             const id = res.data["id"];
-<<<<<<< HEAD
             localStorage.setItem('isLogged', "1");
-=======
-            localStorage.setItem('isLogged', '1');
->>>>>>> 4299f978f89774847117040ec5e0cb33f7eac675
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
             Swal.fire({

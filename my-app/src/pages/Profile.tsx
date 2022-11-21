@@ -45,7 +45,7 @@ export default function Profile(){
     },[])
 
     const bill = {
-        "id": getRandomInt(0,100000),
+        "orderNumber": getRandomInt(0,100000),
         "product" : products[Math.floor(Math.random() * products.length)] ,
         "company" : "Fundación Universitaria del Este",
         "total": getRandomInt(1000000,32000000),

@@ -52,7 +52,7 @@ export default function Bill(props: {company: string, orderNumber: string, produ
                     <div className="bill-price">
                         <div className="integer">{integerPart}</div>
                         <div className="semi-integer">.{semiPart}</div>
-                        <div className="decimal">.{decimalPart}</div>
+                        <div className="decimal">.{decimalPart} </div>
                     </div>
                 </div>
                 <div className="bill-cost-icon">
