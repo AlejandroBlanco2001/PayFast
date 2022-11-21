@@ -1,10 +1,9 @@
 import express from 'express'
 
-const errorHandler = async (err, req:express.Request, res: express.Response) => {
+const errorHandler = async (err, req:express.Request, res: express.Response, next: express.NextFunction) => {
     //if there is no status, this will be 500
     const errorStatus = err.statusCode || 500;
     const errorMessage = err.message || "Something went wrong";
-    console.log('res: ',res)
     return res.status(errorStatus).json({
         success: false,
         status: errorStatus,

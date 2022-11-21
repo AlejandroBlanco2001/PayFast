@@ -70,13 +70,16 @@ export const getMetodosUsuario = async (req: express.Request, res: express.Respo
 
 export const createMetodo = async (req: express.Request, res: express.Response, next) => {
     try {
+        console.log(req.body)
         const metodo = await prisma.metodopago.create({
             data: {
                 nombre: req.body.nombre,
-                saldo: req.body.saldo || undefined,
-                userId: req['user'].id,
-                bancoId: req.body.bancoId,
+                saldo: +req.body.saldo || undefined,
+                userId: +req['user'].id,
+                bancoId: +req.body.bancoId,
                 tipo: req.body.tipo,
+                numero: req.body.numero,
+                CVC: req.body.cvc,
             },
         });
         res.status(201).json({metodo});
@@ -98,6 +101,8 @@ export const updateMetodo = async (req: express.Request, res: express.Response, 
                 userId: req.body.userId || undefined,
                 bancoId: req.body.bancoId || undefined,
                 tipo: req.body.tipo || undefined,
+                numero: req.body.numero || undefined,
+                CVC: req.body.cvc || undefined,
             },
         });
         res.status(200).json({metodo});

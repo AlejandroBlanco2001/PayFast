@@ -31,7 +31,6 @@ const verifyUser = async (req:express.Request, res: express.Response, next) => {
     if(!req['user']){
         return res.status(401).json({ message: "Unauthorized" });
     }
-    console.log(req.params);
     const userId = req.params['id'] || req.body['id'] || req.query['id'];
     console.log('userId: ',userId, " req['user'].id: ",req['user'].id)
     if (req['user'].id == userId || req['user'].isAdmin) {
@@ -44,7 +43,6 @@ const verifyUser = async (req:express.Request, res: express.Response, next) => {
 //verificar si un usuario es dueño de su método
 const verifyUserMetodo = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
-    console.log("entre");
     if(!req['user']){
         return res.status(401).json({ message: "Unauthorized" });
     }

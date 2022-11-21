@@ -64,7 +64,7 @@ export default function Payment() {
         });
     }
 
-    const form = <PaymentForm onChange={setPaymentMethod} sendTo={sendToProcess}></PaymentForm>;
+    const form = <PaymentForm onChange={setPaymentMethod}></PaymentForm>;
 
     const isLogged = () => {
         if(localStorage.getItem('isLogged') === "1"){
