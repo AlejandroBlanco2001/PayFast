@@ -482,6 +482,11 @@ code {
     rotate: -90deg;  
 }
 
+.CardSection{
+    display: block;
+    height: 240px;
+}
+
 .bill-container{
     display: block;
     background-color:rgba(6,5,5,0.6) ;
@@ -492,8 +497,8 @@ code {
 }
 
 .bill-info-container{
-    padding-top: 90px;
     display: flex;
+    padding-top: 20px;
     justify-content: center;
     font-family: "Raleway";
 }
@@ -502,7 +507,8 @@ code {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 30px 60px;
+    gap: 0px 10px;
+    text-align: center;
 }
 
 .bill-cost-container{
@@ -539,6 +545,7 @@ code {
 
 .category{
     color: rgba(255,255,255,0.6);
+    margin:auto;
     font-size:18px;
     font-weight: 350;
 }
@@ -549,12 +556,14 @@ code {
     font-size:18px;
     justify-self: end;
     font-weight: 350;
+    margin:auto;
+    width: 100%;
 }
 
 .divider{
     align-self: center;
-    margin-top: 50px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border: medium none;
     border-top: 3px dashed rgba(255,255,255,0.5);
 }

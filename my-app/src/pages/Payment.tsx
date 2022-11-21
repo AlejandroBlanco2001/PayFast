@@ -1,7 +1,7 @@
 import React from 'react';
 import PaymentMenu from "../components/PaymentMenu";
 import Bill from "../components/Bill";
-import {useNavigate, useLocation} from 'react-router-dom';
+import {Navigate, useNavigate, useLocation} from 'react-router-dom';
 
 
 export default function Payment() {
@@ -16,8 +16,7 @@ export default function Payment() {
         if(localStorage.getItem('isLogged') === "1"){
             return (        
                 <div className='payment-section'>
-                    <PaymentMenu></PaymentMenu>
-                    <Bill></Bill>
+                    <Bill company={bill.company} orderNumber={bill.id} total={bill.total} product={bill.product}></Bill>
                 </div>
             )
         }

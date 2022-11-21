@@ -10,6 +10,6 @@ router.post('/register',[
     check("password", "Please input a password with a min length of 6")
         .isLength({min: 6})
 ], register);
-router.get('/login', login);
+router.post('/login', login);
 
 export default router;

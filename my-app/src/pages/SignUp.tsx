@@ -22,7 +22,7 @@ export default function SignUp(){
     const sendForm = (event) => {
         event.preventDefault();
         console.log("Sending data ..." + data['femail'] + " " + data['fpass'] + " " + data['fname'] + " " + data['fuser']);
-        axios.post("http://localhost:9000/api/auth/register",{
+        axios.post("http://localhost:8000/api/auth/register",{
             username: data['fuser'],
             password: data['fpass'],
             name: data['fname'],

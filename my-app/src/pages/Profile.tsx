@@ -28,6 +28,8 @@ export default function Profile(){
     const [methods, setMethods] = useState([]);
     const [avatar, setAvatar] = useState("");
 
+    const products = ["Matricula", "Pago de servicio", "Pago de extracurricular", "Vacional"];
+
     useEffect(()  => {
         // Get the user data
         api.get(`http://localhost:8000/api/users/${id}`).then(async (res) => {
@@ -47,10 +49,10 @@ export default function Profile(){
     },[])
 
     const bill = {
-        "id": getRandomInt(0,1000000),
-        "producto" : ["Matricula", "Pago de servicio", "Pago de extracurricular", "Vacional"],
-        "compañia" : "Fundación Universitaria del Este",
-        "monto": getRandomInt("1000000","32000000"),
+        "id": getRandomInt(0,100000),
+        "product" : products[Math.floor(Math.random() * products.length)] ,
+        "company" : "Fundación Universitaria del Este",
+        "total": getRandomInt(1000000,32000000),
     }
 
     return (

@@ -1,8 +1,6 @@
 import PaginatedItems from './PaginatedItems';
 
 export default function MethodsTable(props: {methods: any}){
-    
-
 
     const methods = [
         {"numero":"4929103134210873", "id": "1"},

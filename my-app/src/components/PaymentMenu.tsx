@@ -19,7 +19,7 @@ export default function PaymentMenu(){
     const navigate = useNavigate();
 
     const sendBill = () => {
-      
+
     }
 
     const [paymentMethods, setPaymentMethods] = useState([
@@ -44,7 +44,7 @@ export default function PaymentMenu(){
           <div className="PaymentBoxContainer">
             <div className='PaymentBoxGrid'>
               {paymentMethods.map((method,index) => {
-                return <PaymentMethod key={index} image={method.image} status={method.status} name={method.name} ></PaymentMethod>
+                return <PaymentMethod key={index} image={method.image} status={method.status} name={method.name} onClick={() => {}}></PaymentMethod>
               })}
             </div>
             <div className='PaymentCupon'>
