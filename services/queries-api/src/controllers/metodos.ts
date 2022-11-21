@@ -25,7 +25,7 @@ export const getMetodo = async (req: express.Request, res: express.Response, nex
         });
 
         if (!servicio[0].estado) {
-            return res.status(404).json({message: "Servicio de consulta no disponible"});
+            return res.status(500).json({message: "Servicio de consulta no disponible"});
         }
 
         res.status(200).json({metodo});

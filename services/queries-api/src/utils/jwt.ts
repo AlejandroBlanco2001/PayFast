@@ -52,7 +52,8 @@ const verifyUserMetodo = async (req:express.Request, res: express.Response, next
                 id: parseInt(req.params.id),
             }
         });
-        if (req['user'].id == metodo[0]['userId'] || req['user'].isAdmin) {
+        console.log(req['user'].id, metodo[0]['userId'])
+        if (req['user'].id === metodo[0]['userId'] || req['user'].isAdmin) {
             next();
         } else {
             return res.status(403).json({ message: "Forbidden" });
