@@ -42,6 +42,8 @@ const updateUser = async (req: express.Request, res: express.Response, next) => 
                 username: req.body.username || undefined,
                 password: req.body.password || undefined,
                 isAdmin: undefined,
+                nrotelefono: req.body.nrotelefono || undefined,
+                direccion: req.body.direccion || undefined,
             },
         });
         res.status(200).json({user});

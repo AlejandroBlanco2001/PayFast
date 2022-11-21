@@ -65,6 +65,8 @@ model user {
   name        String?
   isAdmin     Boolean       @default(false)
   password    String
+  nrotelefono String?       @db.VarChar(14)
+  direccion   String?       @db.VarChar(60)
   metodopago  metodopago[]
   transaccion transaccion[]
 }
