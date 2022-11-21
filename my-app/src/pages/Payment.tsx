@@ -1,11 +1,16 @@
 import React from 'react';
 import PaymentMenu from "../components/PaymentMenu";
 import Bill from "../components/Bill";
-import { Navigate } from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 
 
 export default function Payment() {
 
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const bill = location.state.bill;
 
     const isLogged = () => {
         if(localStorage.getItem('isLogged') === "1"){

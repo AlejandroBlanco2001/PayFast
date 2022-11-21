@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Bill from "./Bill";
-import PaymentMethod from "./PaymentMethod";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, DefaultIcon, Box, InputLeftElement } from '@chakra-ui/react'
-import { GridItem, SimpleGrid, Container, Input, Text, InputGroup, InputRightElement, Button, Grid } from '@chakra-ui/react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKeyboard, faEye, fa1, fa2, fa3, fa4, fa5, fa6, fa7, fa8, fa9, fa0, faDeleteLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from "react";
+import { GridItem, SimpleGrid, Container, Text, Button, Grid } from '@chakra-ui/react';
+
 export default function Facturacion() {
     /* Inputs :  */
     const [Nt, setNt] = useState("1111 - 2222 - 3333 - 4444");
@@ -16,12 +12,11 @@ export default function Facturacion() {
     const [Ord, setOrderNumber] = useState("#id");
     const [Pro, setProduct] = useState("Matricula");
     const [iva, setIVA] = useState("Numero");
+    
     /* Show : */
     const [show, setShow] = useState(false)
 
     return (
-
-
         <div className="OrderProgress">
             <Grid templateColumns="repeat(2, 1fr)" templateRows="repeat(4, 1fr)" gap={6}>
                 <GridItem color="white" colStart={1} rowStart={1} rowSpan={1} padding={5}>

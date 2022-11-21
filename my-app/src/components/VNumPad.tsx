@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Bill from "./Bill";
-import PaymentMethod from "./PaymentMethod";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, DefaultIcon, Box, InputLeftElement } from '@chakra-ui/react'
-import { GridItem, Input, Text, InputGroup, InputRightElement, Button, Grid } from '@chakra-ui/react';
+import React, { useState } from "react";
+import { GridItem, Input,  Button, Grid } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKeyboard, faEye, fa1, fa2, fa3, fa4, fa5, fa6, fa7, fa8, fa9, fa0, faDeleteLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faKeyboard, fa1, fa2, fa3, fa4, fa5, fa6, fa7, fa8, fa9, fa0, faDeleteLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 export default function Numpad({ setCVC }) {
     /* Inputs :  */
@@ -21,14 +18,7 @@ export default function Numpad({ setCVC }) {
         setCVC(pad.slice(0, -1));
         setPd(pad.slice(0, -1));
     }
-    const theme = {
 
-        Button:{
-            colorScheme: 'blue',
-        },
-
-}
-   
     return (
 <>
             {!show ?<Button size='lg' onClick={() => setShow(!show)}>

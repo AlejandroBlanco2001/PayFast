@@ -34,7 +34,7 @@ export default function MethodCard(props: {number: string, id: string}){
     const checkCreditAvailable = async () => {
         // previous check to do a request to the server to know the availiability of the credit service
         const balance =  150000; 
-        //const balance = await axios.get(`http://localhost:8080/api/metodos/${id}`);
+        //const balance = await axios.get(`http://localhost:8080/api/metodos/${id}`)
         Swal.fire({
             title: 'Credit available',
             text: `Your credit available is: ${balance}`,

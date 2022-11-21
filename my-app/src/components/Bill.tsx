@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import Cards from 'react-credit-cards';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoneyBill, faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons'
+import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons'
 import 'react-credit-cards/lib/styles.scss'
 
 
-export default function Bill(){
+export default function Bill(props: {number: string, id: string, name: string, cvc: string, expiry: string, focus: string}) {
 
     const [number, setNumber] = useState('5145876364470839');
     const [name, setName] = useState('John Doe');
