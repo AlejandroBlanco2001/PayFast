@@ -12,13 +12,22 @@ const register = async (req: express.Request, res: express.Response, next) => {
         return res.status(400).json({ errors: errors.array() });
     }
     try{
-        const { username, email, name, password } = req.body;
+        const { username, 
+                email, 
+                name, 
+                password,
+                nrotelefono,
+                direccion
+            } = req.body;
+            
         const user = await prisma.user.create({
             data: {
                 username: username,
                 email: email,
                 name: name,
                 password: await bcrypt.hash(password, 10),
+                nrotelefono: nrotelefono,
+                direccion: direccion,
             },
         })
         res.status(200).json({user});
