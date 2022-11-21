@@ -2,7 +2,7 @@ import React from 'react';
 import PaymentMenu from "../components/PaymentMenu";
 import PaymentForm from '../components/PaymentForm';
 import Bill from "../components/Bill";
-import { Navigate } from 'react-router-dom';
+import {Navigate, useNavigate, useLocation} from 'react-router-dom';
 
 function getRandomInt(min, max) : number{
     min = Math.ceil(min);
@@ -17,12 +17,11 @@ export default function Payment() {
     
     const products = ["hola", "hola2", "hola3"];
     
-    const bill = {
-        "company" : "Fundación Universitaria del Este",
-        "orderNumber": getRandomInt(0,100000) + "",
-        "product" : products[Math.floor(Math.random() * products.length)] ,
-        "total": getRandomInt(1000000,32000000),
-    }
+    
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    const bill = location.state.bill;
 
     const isLogged = () => {
         if(localStorage.getItem('isLogged') === "1"){

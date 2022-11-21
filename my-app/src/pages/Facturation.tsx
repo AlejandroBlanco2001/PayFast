@@ -1,5 +1,6 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { GridItem, SimpleGrid, Container, Text, Button, Grid } from '@chakra-ui/react';
+
 export default function Facturacion() {
     /* Inputs :  */
     const [Nt, setNt] = useState("1111 - 2222 - 3333 - 4444");
@@ -11,12 +12,11 @@ export default function Facturacion() {
     const [Ord, setOrderNumber] = useState("#id");
     const [Pro, setProduct] = useState("Matricula");
     const [iva, setIVA] = useState("Numero");
+    
     /* Show : */
     const [show, setShow] = useState(false)
 
     return (
-
-
         <div className="OrderProgress">
             <Grid templateColumns="repeat(2, 1fr)" templateRows="repeat(4, 1fr)" gap={6}>
                 <GridItem color="white" colStart={1} rowStart={1} rowSpan={1} padding={5}>

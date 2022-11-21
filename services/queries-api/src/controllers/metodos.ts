@@ -11,9 +11,23 @@ export const getMetodo = async (req: express.Request, res: express.Response, nex
                 id: id,
             },
         });
+
         if (!metodo) {
             return res.status(404).json({message: "Metodo not found"});
         }
+
+        //verificar disponibilidad servicio de consulta
+        const servicio = await prisma.servicio.findMany({
+            where: {
+                bancoId: metodo['bancoId'],
+                descripcion: 'Consulta',
+            }
+        });
+
+        if (!servicio[0].estado) {
+            return res.status(500).json({message: "Servicio de consulta no disponible"});
+        }
+
         res.status(200).json({metodo});
     } catch (err) {
         next(err)

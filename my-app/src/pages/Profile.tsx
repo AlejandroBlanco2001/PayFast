@@ -1,11 +1,17 @@
 import {security_api, buy_api, queries_api} from '../utils/axios-apis';
 import React, {useState, useEffect} from 'react'
-import { useNavigate, useLocation, useNavigation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import ProfileCard from '../components/ProfileCard';
 import PaymentTable  from '../components/PaymentTable';
 import MethodsTable from '../components/MethodsTable';
 import { Button } from '@chakra-ui/react';
+
+function getRandomInt(min, max) : number{
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; 
+}
 
 export default function Profile(){
 
@@ -17,6 +23,8 @@ export default function Profile(){
     const [transactions, setTransactions] = useState([]);
     const [methods, setMethods] = useState([]);
     const [avatar, setAvatar] = useState("");
+
+    const products = ["Matricula", "Pago de servicio", "Pago de extracurricular", "Vacional"];
 
     useEffect(()  => {
         // Get the user data
@@ -36,6 +44,13 @@ export default function Profile(){
         }}).then((res) => {setMethods(res.data)});
     },[])
 
+    const bill = {
+        "id": getRandomInt(0,100000),
+        "product" : products[Math.floor(Math.random() * products.length)] ,
+        "company" : "Fundación Universitaria del Este",
+        "total": getRandomInt(1000000,32000000),
+    }
+
     return (
         <div className="profile">
             <div className="profile-section">
@@ -43,7 +58,7 @@ export default function Profile(){
                 <PaymentTable transactions={transactions} ></PaymentTable>
                 <MethodsTable methods={methods}></MethodsTable>
             </div>
-            <Button colorScheme='linkedin' onClick={() => navigate('/payment') }>Pay Fast</Button>
+            <Button colorScheme='linkedin' onClick={() => navigate('/payment', {state: {"bill": bill}}) }>Proceed to pay</Button>
         </div>
     )
 }

@@ -25,18 +25,15 @@ export default function Login(){
     const sendForm = (event) =>{
         event.preventDefault();
         console.log("Sending data ..." + data['fuser'] + " " + data['fpass']);
-        const username = data['fuser'];
-        const password = data['fpass'];
-        security_api.get("/api/auth/login",{ params: {
-            username: username,
-            password: password
-        }}).then((res) =>  {
-            console.log(res.data)
+        security_api.post("/api/auth/login",{
+            username: data['fuser'],
+            password: data['fpass']
+        }).then((res) =>  {
+            console.log(res)
             const id = res.data["id"];
-            localStorage.setItem('isLogged', "1");
+            localStorage.setItem('isLogged', '1');
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
-            console.log(e);
             Swal.fire({
             icon: 'error',
             title: 'Oops...',

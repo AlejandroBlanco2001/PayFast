@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+const api = axios.create({
+    withCredentials: true,
+})
 export default function MethodCard(props: {number: string, id: string}){
 
     let master_card_logo = "https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-mastercard-logo-png-vector-download-19.png";
@@ -32,15 +35,23 @@ export default function MethodCard(props: {number: string, id: string}){
     };
 
     const checkCreditAvailable = async () => {
-        // previous check to do a request to the server to know the availiability of the credit service
-        const balance =  150000; 
-        //const balance = await axios.get(`http://localhost:8080/api/metodos/${id}`);
-        Swal.fire({
-            title: 'Credit available',
-            text: `Your credit available is: ${balance}`,
-            icon: 'success',
-            confirmButtonText: 'Ok'
-        });
+        await api.get(`http://localhost:8080/api/metodos/${id}`).then((res) => {
+            Swal.fire({
+                title: 'Credit available',
+                text: `Your credit available is: ${res.data.balance}`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+        }).catch((err) => {
+            if(err.response.data.message === "Servicio de consulta no disponible"){
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'Service not available',
+                    icon: 'error',
+                    confirmButtonText: ':('
+                })
+            }
+        })
     }
 
     return (

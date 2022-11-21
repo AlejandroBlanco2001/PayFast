@@ -44,6 +44,7 @@ const verifyUser = async (req:express.Request, res: express.Response, next) => {
 //verificar si un usuario es dueño de su método
 const verifyUserMetodo = async (req:express.Request, res: express.Response, next) => {
     verifyToken(req, res);
+    console.log("entre");
     if(!req['user']){
         return res.status(401).json({ message: "Unauthorized" });
     }
@@ -53,7 +54,7 @@ const verifyUserMetodo = async (req:express.Request, res: express.Response, next
                 id: parseInt(req.params.id),
             }
         });
-        if (req['user'].id == metodo[0]['userId'] || req['user'].isAdmin) {
+        if (req['user'].id === metodo[0]['userId'] || req['user'].isAdmin) {
             next();
         } else {
             return res.status(403).json({ message: "Forbidden" });
