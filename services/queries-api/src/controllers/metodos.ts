@@ -71,19 +71,30 @@ export const getMetodosUsuario = async (req: express.Request, res: express.Respo
 export const createMetodo = async (req: express.Request, res: express.Response, next) => {
     try {
         console.log(req.body)
+        console.log(req['user'].id)
         const metodo = await prisma.metodopago.create({
             data: {
                 nombre: req.body.nombre,
-                saldo: +req.body.saldo || undefined,
-                userId: +req['user'].id,
-                bancoId: +req.body.bancoId,
+                // saldo: +req.body.saldo || undefined,
+                user: {
+                    connect: {
+                        id: parseInt(req['user'].id),
+                    },
+                },
+                banco: {
+                    connect: {
+                        id: parseInt(req.body.bancoId),
+                    }
+                },
+                CVC: req.body.CVC,
                 tipo: req.body.tipo,
                 numero: req.body.numero,
-                CVC: req.body.cvc,
             },
         });
         res.status(201).json({metodo});
     } catch (err) {
+        console.error(err);
+        
         next(err)
     }
 };

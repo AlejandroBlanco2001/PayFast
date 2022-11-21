@@ -16,7 +16,7 @@ export default function PaymentForm({onChange}: {onChange: any}) {
     const [cvc, setCVC] = useState('');
     const [dynamic, setdynamic] = useState('');
     const [show, setShow] = React.useState(false);
-    const [bank, setBank] = useState('0');
+    const [bank, setBank] = useState('1');
 
     const navigate = useNavigate();
     const handleClick = () => setShow(!show);
@@ -226,8 +226,8 @@ export default function PaymentForm({onChange}: {onChange: any}) {
                     <div className="Payment">
                         <h4>
                             <Select id="selectBank" placeholder='Select option' onChange={(event) => setBank(event.target.value) }>
-                                <option value='0'>East Bank</option>
-                                <option value='1'>Western Bank</option>
+                                <option value='1'>East Bank</option>
+                                <option value='2'>Western Bank</option>
                             </Select>
                         </h4>
                     </div>

@@ -3,11 +3,13 @@ import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 const api = axios.create({
     withCredentials: true,
 })
 export default function MethodCard(props: {number: string, id: string}){
+    const navigate = useNavigate();
 
     let master_card_logo = "https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-mastercard-logo-png-vector-download-19.png";
     let visa_logo = "https://www.freepnglogos.com/uploads/visa-card-logo-9.png";
@@ -68,6 +70,7 @@ export default function MethodCard(props: {number: string, id: string}){
                 Swal.fire(
                 'Proceeding to pay!'
                 )
+                navigate('/facturation');
             }
         })
     }

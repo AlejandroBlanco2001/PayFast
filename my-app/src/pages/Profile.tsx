@@ -17,7 +17,7 @@ export default function Profile(){
 
     const navigate = useNavigate();
     const location = useLocation();
-    const id = location.state.user_id;
+    const id = localStorage.getItem('user');
 
     const [user, setUser] = useState({});
     const [transactions, setTransactions] = useState([]);
@@ -29,19 +29,18 @@ export default function Profile(){
     useEffect(()  => {
         // Get the user data
         security_api.get(`/api/users/${id}`).then(async (res) => {
-            localStorage.setItem('user', id);
             setUser(res.data.user);
         });
         // Get random image of the username
         security_api.get('https://avatars.dicebear.com/api/miniavs/elpapitodelbackend.svg', {withCredentials: false}).then((res) => setAvatar(res.data))
         // Get payment methods of the user 
-        queries_api.get('/api/metodos/user', { params: {
+        queries_api.get(`/api/metodos/user/${id}`, { params: {
             "id" : id
-        }}).then((res) => setTransactions(res.data));
+        }}).then((res) => {setMethods(res.data['metodos_disponibles'])});
         // Get transactions of the user
         buy_api.get(`/api/transaccion/user/${id}`, { params: {
             "id": id    
-        }}).then((res) => {setMethods(res.data)});
+        }}).then((res) => {console.log('transacciones', res.data);setTransactions(res.data['transacciones'])});
     },[])
 
     const bill = {

@@ -3,9 +3,9 @@ import RowTransaction from './RowTransaction'
 import PaginatedItems from './PaginatedItems';
 
 
-export default function PaymentTable(props: {transactions: any}) {
+export default function PaymentTable(props: {transactions: Array<any>}) {
     
-    const test =  [{
+    const test = [{
         "id": 1,
         "monto": 1000,
         "fecha": "2021-05-01",
@@ -150,9 +150,16 @@ export default function PaymentTable(props: {transactions: any}) {
         "sede": "Sede 7",
     }];
 
+    // change the test ids in ascending order
+    test.forEach((item, index) => {
+        item.id = index + 555;
+    });
+
+    const transactions = props.transactions.length>0? props.transactions : test;
+
     const transactionsList = () => {
-        if(test.length > 0){
-            return <PaginatedItems items={test} itemsPerPage={8} type={1}></PaginatedItems>
+        if(transactions.length > 0){
+            return <PaginatedItems items={transactions} itemsPerPage={8} type={1}></PaginatedItems>
         }
         return <div>You dont have transactions</div>
     }
@@ -161,7 +168,7 @@ export default function PaymentTable(props: {transactions: any}) {
         <div className="transactionsTable">
             <h1>Transactions</h1>
             <div className="table">                    
-                <RowTransaction id="" estado="" fecha="" franquicia="" monto="" nroCoutas="" sede="" userId="" metodoId="" isHeader={true}></RowTransaction>
+                <RowTransaction id="" estado="" fecha="" franquicia="" monto="" nroCoutas="" sede="" userId="" metodoId="" isHeader={true} key={0}></RowTransaction>
                 {transactionsList()}
             </div>
         </div>
