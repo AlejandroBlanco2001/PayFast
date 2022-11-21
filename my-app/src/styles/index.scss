@@ -367,6 +367,15 @@ code {
     text-indent: 30px;
 }
 
+#selectBank{
+    background-color: rgba(16, 16, 16, 0.9);
+    color: white;
+
+    option{
+        color: black;
+    }
+}
+
 #credit-card{
     color: white;
     font-size: 28px;
@@ -374,6 +383,12 @@ code {
     padding-top: 25px;
 }
 
+
+.method-card_actions{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 
 .PaymentForm{
     font-family: "Raleway", "Roboto";

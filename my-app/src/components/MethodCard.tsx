@@ -1,5 +1,5 @@
 import React from 'react';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -54,13 +54,34 @@ export default function MethodCard(props: {number: string, id: string}){
         })
     }
 
+    const payWithThis = async () => {
+        await Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to pay this this method?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, use it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Proceeding to pay!'
+                )
+            }
+        })
+    }
+
     return (
         <div className="method-card">
             <div className="method-card__info">
                 <img src={getLogo()} alt="logo"></img>
                 <h3>{getNumberCardWithAsterisk()}</h3>
             </div>
-            <FontAwesomeIcon icon={faMagnifyingGlass} onClick={async () => {checkCreditAvailable()}}></FontAwesomeIcon>
+            <div className="method-card_actions">
+                <FontAwesomeIcon icon={faMagnifyingGlass} onClick={async () => checkCreditAvailable()}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faCartShopping} onClick={async () => payWithThis()}></FontAwesomeIcon>
+            </div>
         </div>
     )
 }

@@ -58,7 +58,7 @@ export default function Profile(){
                 <PaymentTable transactions={transactions} ></PaymentTable>
                 <MethodsTable methods={methods}></MethodsTable>
             </div>
-            <Button colorScheme='linkedin' onClick={() => navigate('/payment', {state: {"bill": bill}}) }>Proceed to pay</Button>
+            <Button colorScheme='linkedin' onClick={() => navigate('/payment', {state: {"bill": bill}}) }>Add new payment method</Button>
         </div>
     )
 }

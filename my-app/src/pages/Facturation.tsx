@@ -13,10 +13,10 @@ export default function Facturacion() {
     const [em, setEmail] = useState("");
 
     useEffect(() => {
-        const id = localStorage.getItem('id');
+        const id = localStorage.getItem('user');
         security_api.get(`/api/users/${id}`).then((res) => {
-            setTt(res.data.name);
-            setEmail(res.data.email);
+            setTt(res.data.user.name);
+            setEmail(res.data.user.email);
             setTel(res.data.phone || "(+57) 3333333333");
             setDir(res.data.address || "Tv 5 #1-2");
         })
@@ -50,7 +50,6 @@ export default function Facturacion() {
                             <Text color="gray.300">E-mail factura</Text>
                             <Text>{em}</Text>
                         </SimpleGrid>
-
                     </Container>
                 </GridItem>
                 <GridItem color="white" colStart={1} rowStart={2} rowSpan={1} padding={5}>
