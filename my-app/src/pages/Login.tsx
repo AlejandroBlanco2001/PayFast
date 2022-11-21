@@ -35,7 +35,7 @@ export default function Login(){
         }).then((res) =>  {
             console.log(res)
             const id = res.data["id"];
-            localStorage.setItem('isLogged', id);
+            localStorage.setItem('isLogged', "1");
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
             Swal.fire({
