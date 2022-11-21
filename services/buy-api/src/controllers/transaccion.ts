@@ -25,7 +25,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
             },
         });
         if (!metodo.estado) {
-            return res.status(404).json({message: "Metodo not available"});
+            estado = Estado.Rechazado;
         }
 
         //verificar estado de servicio de transaccion
@@ -57,17 +57,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         });
         res.status(201).json({transaccion});
     } catch (err) {
-        if (err.status === 500) {
-            req.app.get('queue').push({
-                monto: req.body.monto,
-                sede: req.body.sede,
-                franquicia: req.body.franquicia,
-                nroCuotas: req.body.nroCuotas,
-                userId: req.body.userid,
-                metodoId: req.body.metodoId,
-                estado: estado
-            });
-        }
+        next(err)
     }
 };
 
