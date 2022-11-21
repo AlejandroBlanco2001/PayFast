@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import {security_api} from '../utils/axios-apis';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import InputC from '../components/InputC';
@@ -22,7 +22,7 @@ export default function SignUp(){
     const sendForm = (event) => {
         event.preventDefault();
         console.log("Sending data ..." + data['femail'] + " " + data['fpass'] + " " + data['fname'] + " " + data['fuser']);
-        axios.post("http://localhost:8000/api/auth/register",{
+        security_api.post("/api/auth/register",{
             username: data['fuser'],
             password: data['fpass'],
             name: data['fname'],

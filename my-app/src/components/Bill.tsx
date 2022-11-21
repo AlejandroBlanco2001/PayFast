@@ -5,10 +5,9 @@ import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons'
 import 'react-credit-cards/lib/styles.scss'
 
 
-export default function Bill(props: {company: string, orderNumber: string, product: string, total: number}) {
-
-
-    const { company, orderNumber, product, total } = props; 
+export default function Bill(props: {company: string, orderNumber: string, product: string, total: number, info: any}) {
+    
+    const {company, orderNumber, product, total, info} = props;
     const iva = Math.round(total * 0.19);
 
     // Number to string 
@@ -18,10 +17,11 @@ export default function Bill(props: {company: string, orderNumber: string, produ
     const decimalPart = total >= 10000000 ? total.toString().substring(total.toString().length - 3, 7) : total.toString().substring(total.toString().length - 3, 6);
 
 
-    const [number, setNumber] = useState('5145876364470839');
     const [name, setName] = useState('John Doe');
-    const [expire, setExpire] = useState('12/18');
-    const [cvc, setCVC] = useState('321');
+    const number= info.cardNumber || '5145876364470839'
+    const expire= info.expire || '12/18'
+    const cvc= info.cvc || '321'
+
 
     return(
         <div className="bill-container">
