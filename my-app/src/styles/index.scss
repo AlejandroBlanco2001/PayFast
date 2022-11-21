@@ -281,6 +281,7 @@ code {
     z-index: 0;
 
     h1{
+        color: white;
         font-size: 30px;
         font-weight: 500;
         margin-left: 20px;
@@ -354,14 +355,54 @@ code {
     gap: 20px;
 }
 
-
-
 .payment-section{
     display: flex;
     display: row;
     padding-left: 40px;
     padding-top: 60px;
-    gap: 70px;
+    justify-content: space-evenly;
+}
+
+#cardNumberInput{
+    text-indent: 30px;
+}
+
+#selectBank{
+    background-color: rgba(16, 16, 16, 0.9);
+    color: white;
+
+    option{
+        color: black;
+    }
+}
+
+#credit-card{
+    color: white;
+    font-size: 28px;
+    padding-left:35px;
+    padding-top: 25px;
+}
+
+
+.method-card_actions{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.PaymentForm{
+    font-family: "Raleway", "Roboto";
+
+    input{
+        background-color: rgba(16,16,16,0.9);
+        height: 65px;
+        color: rgba(255,255,255,0.6);
+        font-weight: 300;
+    }
+}
+
+#gridForm{
+    gap: 50px 0px;
 }
 
 .PaymentMenu{
@@ -571,6 +612,11 @@ code {
 .integer{
     font-weight: 700;
     font-size:40px;
+}
+
+.semi-integer{
+    font-weight: 700;
+    font-size:38px;
 }
 
 .decimal{

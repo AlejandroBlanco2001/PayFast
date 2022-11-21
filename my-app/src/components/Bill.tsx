@@ -5,21 +5,23 @@ import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons'
 import 'react-credit-cards/lib/styles.scss'
 
 
-export default function Bill(props: {company: string, orderNumber: string, product: string, total: number}) {
-
-
-    const { company, orderNumber, product, total } = props; 
+export default function Bill(props: {company: string, orderNumber: string, product: string, total: number, info: any}) {
+    
+    const {company, orderNumber, product, total, info} = props;
     const iva = Math.round(total * 0.19);
 
     // Number to string 
     console.log(total)
-    const integerPart = total.toString().substring(0,6);
-    const decimalPart = total.toString().substring(6,8);
+    const integerPart = total >= 10000000 ? total.toString().substring(0,2) :  total.toString().substring(0,1);
+    const semiPart = total >= 10000000 ? total.toString().substring(2,5) : total.toString().substring(1,4);
+    const decimalPart = total >= 10000000 ? total.toString().substring(total.toString().length - 3, 7) : total.toString().substring(total.toString().length - 3, 6);
 
-    const [number, setNumber] = useState('5145876364470839');
+
     const [name, setName] = useState('John Doe');
-    const [expire, setExpire] = useState('12/18');
-    const [cvc, setCVC] = useState('321');
+    const number= info.cardNumber || '5145876364470839'
+    const expire= info.expire || '12/18'
+    const cvc= info.cvc || '321'
+
 
     return(
         <div className="bill-container">
@@ -49,7 +51,8 @@ export default function Bill(props: {company: string, orderNumber: string, produ
                     <div>El total a pagar es</div>
                     <div className="bill-price">
                         <div className="integer">{integerPart}</div>
-                        <div className="decimal">.{decimalPart}</div>
+                        <div className="semi-integer">.{semiPart}</div>
+                        <div className="decimal">.{decimalPart} </div>
                     </div>
                 </div>
                 <div className="bill-cost-icon">

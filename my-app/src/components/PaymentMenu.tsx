@@ -1,14 +1,11 @@
 import PaymentMethod from '../components/PaymentMethod';
 import MenuTab from '../components/MenuTab';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import {queries_api} from '../utils/axios-apis';
 
 import { Input, InputGroup } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 
-const api = axios.create({
-    withCredentials: true,
-})
 
 export default function PaymentMenu(){
     
@@ -25,10 +22,10 @@ export default function PaymentMenu(){
     const [paymentMethods, setPaymentMethods] = useState([
       {'image': master_card_logo, 'status': true, 'name': 'visa'},{'image': visa_logo, 'status': true, 'name': 'visa'},
         {'image': american_express_logo, 'status': true, 'name': 'american'}, {'image': master_card_logo, 'status': true, 'name': 'visa'},
-        {'image': master_card_logo, 'status': true, 'name': 'visa'}, {'image': master_card_logo, 'status': true, 'name': 'visa'}]);
+    {'image': master_card_logo, 'status': true, 'name': 'visa'},/* {'image': master_card_logo, 'status': true, 'name': 'visa'}*/]);
 
     useEffect(() => {
-        api.get('http://localhost:8080/api/metodos/user')
+        queries_api.get('/api/metodos/user')
         .then(res => {
             console.log(res.data);
             setPaymentMethods(res.data);

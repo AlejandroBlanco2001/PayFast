@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import axios from 'axios';
+import {security_api} from "../utils/axios-apis";
 import { useNavigate } from "react-router-dom";
 import InputC from '../components/InputC';
 import Swal from 'sweetalert2';
@@ -7,10 +7,6 @@ import { Button } from '@chakra-ui/react'
 
 
 const KeyImage = require('../assets/keyImage.png');
-
-const api = axios.create({
-    withCredentials: true,
-})
 
 export default function Login(){
 
@@ -29,16 +25,15 @@ export default function Login(){
     const sendForm = (event) =>{
         event.preventDefault();
         console.log("Sending data ..." + data['fuser'] + " " + data['fpass']);
-        api.post("http://localhost:8000/api/auth/login",{
+        security_api.post("/api/auth/login",{
             username: data['fuser'],
             password: data['fpass']
         }).then((res) =>  {
             console.log(res)
             const id = res.data["id"];
-            localStorage.setItem('isLogged', id);
+            localStorage.setItem('isLogged', "1");
             navigate('/profile', {state: {"user_id": id}, replace:true});
         }).catch(e => {
-            console.log(e);
             Swal.fire({
             icon: 'error',
             title: 'Oops...',

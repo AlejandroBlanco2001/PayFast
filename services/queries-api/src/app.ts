@@ -15,6 +15,8 @@ dotenv.config();
 
 const app = express();
 
+app.set('port', process.env.PORT || 8080);
+
 //Middleware
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser());
