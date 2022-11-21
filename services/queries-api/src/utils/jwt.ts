@@ -32,7 +32,7 @@ const verifyUser = async (req:express.Request, res: express.Response, next) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
     console.log(req.params);
-    const userId = req.params['id'] || req.body[''] || req.query['id'];
+    const userId = req.params['id'] || req.body['id'] || req.query['id'];
     console.log('userId: ',userId, " req['user'].id: ",req['user'].id)
     if (req['user'].id == userId || req['user'].isAdmin) {
         next();
