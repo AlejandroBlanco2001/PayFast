@@ -38,7 +38,7 @@ export default function PaymentForm({onChange}: {onChange: any}) {
 
     const sendTo = async () => {
         let tipo = "";
-        if((number.length === 16 || number.length === 15) && (expiryMM.length === 2 && +expiryMM >= 1 && +expiryMM <= 12) && expiryYY.length === 2 && (cvc.length === 3 || cvc.length === 4)){
+        if((number.length === 16 || number.length === 15) && (expiryMM.length === 2 && parseInt(expiryMM) >= 1 && parseInt(expiryMM) <= 12) && (expiryYY.length === 2 && parseInt(expiryYY) >= 22) && (cvc.length === 3 || cvc.length === 4)){
             if(checkCard()){
                 Swal.fire({
                     title: 'Enter the type of card',
@@ -47,7 +47,7 @@ export default function PaymentForm({onChange}: {onChange: any}) {
                         Debit: "Debit",
                         Credit: "Credit"
                     },
-                    inputPlaceholder: "Credit",
+                    inputPlaceholder: "Enter the type",
                     showCancelButton: false,
                 }).then(async (res) => {
                     console.log(res);

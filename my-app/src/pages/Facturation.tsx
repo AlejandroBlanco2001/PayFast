@@ -20,6 +20,8 @@ export default function Facturacion() {
     const [em, setEmail] = useState("");
     const [cuotas, setCuotas] = useState("0");
     const [sede,setSede] = useState("");
+    const [estado, setEstado] = useState([true,""]);
+    const [error,setError] = useState(false);
     const {cardNumber, cvc, expire, id, tipo} = location.state.paymentMethod;
 
     const [stage , setStage] = useState(1);
@@ -37,14 +39,15 @@ export default function Facturacion() {
     }
 
     useEffect(() => {
-        const id = localStorage.getItem('user');
-        security_api.get(`/api/users/${id}`).then((res) => {
+        const idUser = localStorage.getItem('user');
+        security_api.get(`/api/users/${idUser}`).then((res) => {
             console.log(res);
             setTt(res.data.user.name);
             setEmail(res.data.user.email);
             setTel(res.data.user.nrotelefono || "(+57) 3333333333");
             setDir(res.data.user.direccion || "Tv 5 #1-2");
-
+            let cuotasT = 1;
+            let sedeT = "";
             Swal.fire({
                 title: 'Enter the site of the university',
                 input: 'select',
@@ -56,10 +59,11 @@ export default function Facturacion() {
                     cartagena: 'Cartegena',
                     santamarta: 'Santa Marta'
                 },
-                inputPlaceholder: 'Bogota',
+                inputPlaceholder: 'Enter your site of the university',
                 showCancelButton: false,
         }).then((res) => {
-            setSede(res.value.value);
+            setSede(res.value || "Bogota");
+            sedeT = res.value || "Bogota";
             Swal.fire({
                 title: 'Enter the number of fees',
                 input: 'number',
@@ -67,22 +71,38 @@ export default function Facturacion() {
                 confirmButtonText: 'Ok',
                 showLoaderOnConfirm: true,
             }).then((res) => {
-                setCuotas(res.value);
+                cuotasT = parseInt(res.value || "1");
+                setCuotas(res.value || 1);
                 buy_api.post('/api/transaccion/', {
                     monto: parseInt(amount),
-                    sede: sede || "Bogota",
+                    sede: sedeT || "Bogota",
                     franquicia: getFranchise(),
-                    nroCuotas: tipo === "PSE" ? 1 : parseInt(cuotas),
+                    nroCuotas: tipo === "PSE" ? 1 : cuotasT,
                     userid: parseInt(localStorage.getItem('user') || "1"),
                     metodoId: parseInt(id || "1"), 
                 }).then((res) => {
+                    console.log(res);
+                    if(res.data.transaccion.estado === "Rechazado") {
+                        console.log(res.data.message);
+                        setEstado([false,res.data.message]);
+                    }
                 }).catch((err) => {
+                    setError(true);
                     if(err.response.data.message === "Servicio Transferencia not available"){
                         Swal.fire({
                             title: 'Error',
                             text: 'The service is not available at this time',
                             icon: 'error',
                             confirmButtonText: ':('
+                        }).then((res) => {
+                            navigate('/profile');
+                        });
+                    }else if(err.response.data.message === "Monto must be greater than 0"){
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'The amount must be greather than 0 ',
+                            icon: 'error',
+                            confirmButtonText: ':/'
                         }).then((res) => {
                             navigate('/profile');
                         });
@@ -95,12 +115,13 @@ export default function Facturacion() {
 
     useEffect(() => {
         if(sede !== "" && cuotas !== "0"){
-            if(stage < 6){
+            if(stage < 6 && !error){
                 setTimeout(() => {
                     setStage(1+stage);
                 }, 2000);
             }
             if(stage === 6){
+                if(estado[0] === true){
                 Swal.fire({
                     title: 'Transaction completed successfully',
                     icon: 'success',
@@ -109,13 +130,20 @@ export default function Facturacion() {
                 }).then((res) => {
                     navigate('/profile');
                 })
+                }else{
+                    Swal.fire({
+                        title: 'Transaction rejected',
+                        icon: 'error',
+                        text: estado[1].toString(),
+                        confirmButtonText: ':(',
+                        showLoaderOnConfirm: true,
+                    }).then((res) => {
+                        navigate('/profile');
+                    })
+                }
             }
         }
     },[stage,sede,cuotas])
-
-    /* Show : */
-    const [show, setShow] = useState(false)
-
 
     const bill = JSON.parse(localStorage.getItem('bill') || '{}');
 

@@ -163,6 +163,12 @@ code {
 
 }
 
+.buttonProfile{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .step {
     display: flex ;
     flex-direction: row;
@@ -208,7 +214,7 @@ code {
     align-items: center;
     
     button{
-        width: 50%;
+        width: 30%;
     }
 }
 

@@ -39,20 +39,18 @@ export default function Bill(props: {company: string, orderNumber: string, produ
                     <div className="value">{company}</div>
                     <div className="category">Numero de Orden</div>
                     <div className="value">{orderNumber}</div>
-                    <div className="category">Producto</div>
-                    <div className="value">{product}</div>
-                    <div className="category">IVA (19%)</div>
-                    <div className="value">{iva}</div>
+                    <div className="category">Estado</div>
+                    <div className="value">Inactiva</div>
                 </div>
             </div>
             <hr className="divider"></hr>
             <div className="bill-cost-container">
                 <div className="bill-cost">
-                    <div>El total a pagar es</div>
+                    <div>Saldo Actual</div>
                     <div className="bill-price">
-                        <div className="integer">{integerPart}</div>
-                        <div className="semi-integer">.{semiPart}</div>
-                        <div className="decimal">.{decimalPart} </div>
+                        <div className="integer">00</div>
+                        <div className="semi-integer">.000</div>
+                        <div className="decimal">.000</div>
                     </div>
                 </div>
                 <div className="bill-cost-icon">

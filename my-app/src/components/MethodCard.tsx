@@ -36,7 +36,7 @@ export default function MethodCard(props: {number: string, id: string, tipo: str
 
     const checkCreditAvailable = async () => {
         await queries_api.get(`/api/metodos/${id}`).then((res) => {
-            const balance = res.data.balance || 0; 
+            const balance = res.data.metodo.saldo || 0; 
             Swal.fire({
                 title: 'Credit available',
                 text: `Your credit available is: ${balance}`,
@@ -57,15 +57,24 @@ export default function MethodCard(props: {number: string, id: string, tipo: str
 
     const payWithThis = async () => {
         await Swal.fire({
-            title: 'Enter the anmount to pay',
+            title: 'Enter the amount to pay',
             input: 'number',
             showCancelButton: true,
             confirmButtonText: 'Pay',
             showLoaderOnConfirm: true,
             }).then((result) => {
                 if(result.isConfirmed){
-                    localStorage.setItem('amount', result.value);
-                    navigate('/facturation',{ state: { paymentMethod:{cardNumber: number , id: id, tipo: tipo} } });
+                    if(result.value !== ""){
+                        localStorage.setItem('amount', result.value);
+                        navigate('/facturation',{ state: { paymentMethod:{cardNumber: number , id: id, tipo: tipo} } });
+                    }else{
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: 'You must enter a value',
+                            icon: 'error',
+                            confirmButtonText: ':('
+                        })
+                    }
                 }
             })
     }

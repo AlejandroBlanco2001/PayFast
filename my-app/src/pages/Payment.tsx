@@ -21,48 +21,6 @@ export default function Payment() {
 
     const bill = location.state.bill;
     
-    const checkInputs = (paymentMethod) => {
-        const [month, year] = paymentMethod['expire'].split("/");
-        if((paymentMethod['cardNumber'].length === 15 || paymentMethod['cardNumber'].length === 16)&& (paymentMethod['cvc'].length === 3 || paymentMethod['cvc'].length === 4) && (month <= 12 && month >= 1)){
-            if(checkCard(paymentMethod['cardNumber'])){
-                return "success";
-            }else{
-                return "error_card";
-            }
-        }
-        return "error_data";        
-    }
-
-    const sendToProcess = () => {
-        buy_api.post('/api/transaccion').then((res) => {
-            let validation = checkInputs(paymentMethod);
-            if(validation === "success"){
-                navigate('/facturation', {state: {bill: bill, paymentMethod: paymentMethod}});
-            }else if (validation === "error_card"){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid card, remeber that we only use VISA, Master Card and American express credit cards',
-                })
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Alguno de los datos de la tarjeta no es correcto',
-                })
-            }
-        }).catch((err) => {
-            if(err.response.data.message === "Servicio transferencia not available"){
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'Service not available',
-                    icon: 'error',
-                    confirmButtonText: ':('
-                })
-            }
-        });
-    }
-
     const form = <PaymentForm onChange={setPaymentMethod}></PaymentForm>;
 
     const isLogged = () => {
