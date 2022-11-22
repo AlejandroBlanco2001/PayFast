@@ -9,11 +9,23 @@ enum Estado {
 }
 
 export const createTransaccion = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    //Circuit breaker
+    const cb = await prisma.cbtransaccion.create({
+            data: {
+                monto: req.body.monto,
+                sede: req.body.sede,
+                franquicia: req.body.franquicia,
+                nroCuotas: req.body.nroCuotas,
+                userId: req.body.userid,
+                metodoId: req.body.metodoId,
+            },
+        });
+    throw new Error('Error');
     //Monto mayor a 0
     if(req.body.monto <= 0) {
         return res.status(400).json({message: "Monto must be greater than 0"});
     }
-
+    let message = "succesful"
     //Verificar el estado del método de pago
     let estado = Estado.Aprobado;
     try{
@@ -25,6 +37,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         });
         if (!metodo.estado) {
             estado = Estado.Rechazado;
+            message="Payment Method not active"
         }
 
         //verificar estado de servicio de transaccion
@@ -41,6 +54,7 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
         //verificar saldo
         if(metodo.saldo < req.body.monto){
             estado = Estado.Rechazado;
+            message = "insufficient balance"
         }
 
         const transaccion = await prisma.transaccion.create({
@@ -67,7 +81,13 @@ export const createTransaccion = async (req: express.Request, res: express.Respo
                 },
             });
         }
-        res.status(201).json({transaccion});
+        await prisma.cbtransaccion.delete({
+            where: {
+                id: cb.id,
+            },
+        });
+
+        res.status(201).json({transaccion, message});
     } catch (err) {
         next(err)
     }

@@ -7,9 +7,7 @@ import transaccionRouter from './routes/transaccion';
 
 import { errorHandler } from "./utils/error";
 
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { cb } from './utils/circuit-breaker';
 
 dotenv.config();
 
@@ -29,5 +27,6 @@ app.use('/api/transaccion', transaccionRouter);
 app.use(errorHandler);
 
 app.listen(process.env.PORT || 5000, () => {
+  cb();
   return console.log(`Transactions API is listening at http://localhost:${process.env.PORT || 5000}`);
 });

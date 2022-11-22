@@ -15,18 +15,19 @@ model banco {
 }
 
 model metodopago {
-  id          Int             @id @default(autoincrement())
-  nombre      String
-  userId      Int
-  bancoId     Int
-  estado      Boolean         @default(true)
-  saldo       Int             @default(0)
-  tipo        metodopago_tipo
-  numero      String          @db.VarChar(16)
-  CVC         String          @db.VarChar(4)
-  banco       banco           @relation(fields: [bancoId], references: [id], map: "Metodopago_bancoId_fkey")
-  user        user            @relation(fields: [userId], references: [id], map: "Metodopago_userId_fkey")
-  transaccion transaccion[]
+  id            Int             @id @default(autoincrement())
+  nombre        String
+  userId        Int
+  bancoId       Int
+  estado        Boolean         @default(true)
+  saldo         Int             @default(0)
+  tipo          metodopago_tipo
+  numero        String          @db.VarChar(16)
+  CVC           String          @db.VarChar(4)
+  banco         banco           @relation(fields: [bancoId], references: [id], map: "Metodopago_bancoId_fkey")
+  user          user            @relation(fields: [userId], references: [id], map: "Metodopago_userId_fkey")
+  cbtransaccion cbtransaccion[]
+  transaccion   transaccion[]
 
   @@index([bancoId], map: "Metodopago_bancoId_fkey")
   @@index([userId], map: "Metodopago_userId_fkey")
@@ -61,16 +62,33 @@ model transaccion {
 }
 
 model user {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique(map: "User_email_key")
-  username    String        @unique(map: "User_username_key")
-  name        String?
-  isAdmin     Boolean       @default(false)
-  password    String
-  nrotelefono String?       @db.VarChar(14)
-  direccion   String?       @db.VarChar(60)
-  metodopago  metodopago[]
-  transaccion transaccion[]
+  id            Int             @id @default(autoincrement())
+  email         String          @unique(map: "User_email_key")
+  username      String          @unique(map: "User_username_key")
+  name          String?
+  isAdmin       Boolean         @default(false)
+  password      String
+  nrotelefono   String?         @db.VarChar(14)
+  direccion     String?         @db.VarChar(60)
+  cbtransaccion cbtransaccion[]
+  metodopago    metodopago[]
+  transaccion   transaccion[]
+}
+
+model cbtransaccion {
+  id         Int        @id @default(autoincrement())
+  monto      Float
+  fecha      DateTime   @default(now())
+  userId     Int
+  metodoId   Int
+  franquicia String
+  nroCuotas  Int
+  sede       String
+  metodopago metodopago @relation(fields: [metodoId], references: [id], map: "cbTransaccion_metodoId_fkey")
+  user       user       @relation(fields: [userId], references: [id], map: "cbTransaccion_userId_fkey")
+
+  @@index([metodoId], map: "cbTransaccion_metodoId_fkey")
+  @@index([userId], map: "cbTransaccion_userId_fkey")
 }
 
 enum transaccion_estado {
