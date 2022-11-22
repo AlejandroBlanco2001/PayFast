@@ -75,7 +75,7 @@ export const createMetodo = async (req: express.Request, res: express.Response, 
         const metodo = await prisma.metodopago.create({
             data: {
                 nombre: req.body.nombre,
-                // saldo: +req.body.saldo || undefined,
+                saldo: parseInt(req.body.saldo) || undefined,
                 user: {
                     connect: {
                         id: parseInt(req['user'].id),

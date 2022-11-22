@@ -16,15 +16,16 @@ const addUserId = (config: AxiosRequestConfig ) => {
 };
 const buy_api = axios.create({
     withCredentials: true,
-    baseURL: "http://localhost:5000" || 'https://buy-api-production.up.railway.app',
+    baseURL: "https://buy-api-production.up.railway.app" || "http://localhost:5000",
 });
 const queries_api = axios.create({
-    withCredentials: true,
-    baseURL: "http://localhost:8080" || 'https://queries-api-production.up.railway.app',
+  withCredentials: true,
+  baseURL: "https://queries-api-production.up.railway.app" || "http://localhost:8080",
 });
 const security_api = axios.create({
-    withCredentials: true,
-    baseURL: "http://localhost:8000" || 'https://security-api-production.up.railway.app',
+  withCredentials: true,
+  baseURL:
+    "https://security-api-production.up.railway.app" || "http://localhost:8000",
 });
 
 queries_api.interceptors.request.use(addUserId);
