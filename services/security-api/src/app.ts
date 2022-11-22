@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 8000);
 app.use(
   cors({
     credentials: true,
-    origin: "https://pay-fast-ten.vercel.app"
+    origin: ["https://pay-fast-ten.vercel.app", "http://localhost:3000"],
   })
 );
 

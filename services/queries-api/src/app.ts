@@ -18,7 +18,7 @@ const app = express();
 app.set('port', process.env.PORT || 8080);
 
 //Middleware
-app.use(cors({ credentials: true, origin: "https://pay-fast-ten.vercel.app" }));
+app.use(cors({ credentials: true, origin: ["https://pay-fast-ten.vercel.app", "http://localhost:3000"] }));
 app.use(cookieParser());
 app.use(express.json());
 

@@ -163,6 +163,19 @@ code {
 
 }
 
+.step {
+    display: flex ;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.OrderProgress{
+    margin-top: 120px;
+}
+
 .info-container{    
     font-family: "Roboto";
 

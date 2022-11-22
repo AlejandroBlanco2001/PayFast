@@ -25,16 +25,13 @@ export default function MethodsTable(props: {methods: Array<any>}){
         item.id = index + 1;
     });
 
-    const methods = props.methods.length > 0? props.methods : test;
-
-    console.log('methods',methods);
-    
+    const methods = props.methods;    
 
     const methodsList = () => methods.length > 0 ? <PaginatedItems itemsPerPage={9} items={methods} type={0} ></PaginatedItems> : <div>You dont have payment methods register</div>
 
     return (
         <div className="method-availables">
-            <h1>Payment methods</h1>
+            <h1>Payment methods</h1>    
             <div className="method-table">
                 {methodsList()}
             </div>

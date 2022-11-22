@@ -155,7 +155,7 @@ export default function PaymentTable(props: {transactions: Array<any>}) {
         item.id = index + 555;
     });
 
-    const transactions = props.transactions.length>0? props.transactions : test;
+    const transactions = props.transactions;
 
     const transactionsList = () => {
         if(transactions.length > 0){
@@ -168,7 +168,7 @@ export default function PaymentTable(props: {transactions: Array<any>}) {
         <div className="transactionsTable">
             <h1>Transactions</h1>
             <div className="table">                    
-                <RowTransaction id="" estado="" fecha="" franquicia="" monto="" nroCoutas="" sede="" userId="" metodoId="" isHeader={true} key={0}></RowTransaction>
+                <RowTransaction id="" estado="" fecha="" franquicia="" monto="" nroCuotas="" sede="" userId="" metodoId="" isHeader={true} key={0}></RowTransaction>
                 {transactionsList()}
             </div>
         </div>

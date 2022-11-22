@@ -4,18 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import {queries_api} from "../utils/axios-apis";
 
 const api = axios.create({
     withCredentials: true,
 })
-export default function MethodCard(props: {number: string, id: string}){
+export default function MethodCard(props: {number: string, id: string, tipo: string}){
     const navigate = useNavigate();
 
     let master_card_logo = "https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-mastercard-logo-png-vector-download-19.png";
     let visa_logo = "https://www.freepnglogos.com/uploads/visa-card-logo-9.png";
     let american_express_logo = "https://logodownload.org/wp-content/uploads/2014/04/amex-american-express-logo-0.png";
     
-    const {number, id} = props;
+    const {number, id, tipo} = props;
 
     const getLogo = () => {
         const id = props.number.substring(0,1);
@@ -37,10 +38,11 @@ export default function MethodCard(props: {number: string, id: string}){
     };
 
     const checkCreditAvailable = async () => {
-        await api.get(`http://localhost:8080/api/metodos/${id}`).then((res) => {
+        await queries_api.get(`/api/metodos/${id}`).then((res) => {
+            const balance = res.data.balance || 0; 
             Swal.fire({
                 title: 'Credit available',
-                text: `Your credit available is: ${res.data.balance}`,
+                text: `Your credit available is: ${balance}`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
@@ -70,7 +72,7 @@ export default function MethodCard(props: {number: string, id: string}){
                 Swal.fire(
                 'Proceeding to pay!'
                 )
-                navigate('/facturation',{ state: { paymentMethod:{cardNumber: number} } });
+                navigate('/facturation',{ state: { paymentMethod:{cardNumber: number , id: id, tipo: tipo} } });
             }
         })
     }

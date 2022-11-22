@@ -18,7 +18,7 @@ const app = express();
 //Middleware
 app.use(cors({
   credentials: true,
-  origin: "https://pay-fast-ten.vercel.app"
+  origin: ["https://pay-fast-ten.vercel.app","http://localhost:3000"]
 }));
 
 app.use(cookieParser());
