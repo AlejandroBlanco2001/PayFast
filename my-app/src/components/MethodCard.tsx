@@ -70,7 +70,7 @@ export default function MethodCard(props: {number: string, id: string}){
                 Swal.fire(
                 'Proceeding to pay!'
                 )
-                navigate('/facturation');
+                navigate('/facturation',{ state: { paymentMethod:{cardNumber: number} } });
             }
         })
     }

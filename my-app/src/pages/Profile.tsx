@@ -50,6 +50,9 @@ export default function Profile(){
         "total": getRandomInt(1000000,32000000),
     }
 
+    //save the bill in local storage
+    localStorage.setItem('bill', JSON.stringify(bill));
+
     return (
         <div className="profile">
             <div className="profile-section">

@@ -29,7 +29,9 @@ export default function Facturacion() {
 
     const location = useLocation();
 
-    const {company, orderNumber, product, total} = location.state.bill;
+    const bill = JSON.parse(localStorage.getItem('bill') || '{}');
+
+    const {company, orderNumber, product, total} = bill;
     const {cardNumber, cvc, expire} = location.state.paymentMethod;
 
     return (
