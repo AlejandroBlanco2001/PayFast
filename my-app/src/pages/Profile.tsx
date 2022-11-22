@@ -1,6 +1,6 @@
 import {security_api, buy_api, queries_api} from '../utils/axios-apis';
 import React, {useState, useEffect} from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ProfileCard from '../components/ProfileCard';
 import PaymentTable  from '../components/PaymentTable';
@@ -16,7 +16,6 @@ function getRandomInt(min, max) : number{
 export default function Profile(){
 
     const navigate = useNavigate();
-    const location = useLocation();
     const id = localStorage.getItem('user');
 
     const [user, setUser] = useState({});
