@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { GridItem, SimpleGrid, Container, Text, Button, Grid } from '@chakra-ui/react';
+import { GridItem, SimpleGrid, Container, Text, Grid } from '@chakra-ui/react';
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import {useLocation} from 'react-router-dom';
-import {security_api, buy_api, queries_api} from "../utils/axios-apis";
+import {security_api, buy_api} from "../utils/axios-apis";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Swal from "sweetalert2";
-import { setSyntheticLeadingComments } from "typescript";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Facturacion() {
     /* Inputs :  */
     const location = useLocation();
+    const navigate = useNavigate();
+    const amount = localStorage.getItem("amount") || "100000";
     const [titular, setTt] = useState("");
     const [Tel, setTel] = useState("");
     const [dir, setDir] = useState("");
     const [em, setEmail] = useState("");
     const [cuotas, setCuotas] = useState("0");
     const [sede,setSede] = useState("");
+    const {cardNumber, cvc, expire, id, tipo} = location.state.paymentMethod;
 
     const [stage , setStage] = useState(1);
 
@@ -46,7 +49,7 @@ export default function Facturacion() {
                 title: 'Enter the site of the university',
                 input: 'select',
                 inputOptions: {
-                    sincelojo: "Sincelejo",
+                    sincelejo: "Sincelejo",
                     monteria: "Montería",
                     bogota: 'Bogota',
                     barranquilla: 'Barranquilla',
@@ -56,37 +59,55 @@ export default function Facturacion() {
                 inputPlaceholder: 'Bogota',
                 showCancelButton: false,
         }).then((res) => {
-            console.log(res)
             setSede(res.value.value);
-                Swal.fire({
+            Swal.fire({
                 title: 'Enter the number of fees',
                 input: 'number',
                 showCancelButton: false,
                 confirmButtonText: 'Ok',
                 showLoaderOnConfirm: true,
             }).then((res) => {
-                console.log(res);
                 setCuotas(res.value);
+                buy_api.post('/api/transaccion/', {
+                    monto: parseInt(amount),
+                    sede: sede || "Bogota",
+                    franquicia: getFranchise(),
+                    nroCuotas: tipo === "PSE" ? 1 : parseInt(cuotas),
+                    userid: parseInt(localStorage.getItem('user') || "1"),
+                    metodoId: parseInt(id || "1"), 
+                }).then((res) => {
+                }).catch((err) => {
+                    if(err.response.data.message === "Servicio Transferencia not available"){
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'The service is not available at this time',
+                            icon: 'error',
+                            confirmButtonText: ':('
+                        }).then((res) => {
+                            navigate('/profile');
+                        });
+                    }
+                });
             });
         });
         })
     },[])
 
     useEffect(() => {
-        if(sede != "" && cuotas != "0"){
+        if(sede !== "" && cuotas !== "0"){
             if(stage < 6){
                 setTimeout(() => {
                     setStage(1+stage);
                 }, 2000);
             }
-            if(stage === 5){
-                buy_api.post('/api/transaccion/', {
-                    monto: parseInt(total),
-                    sede: sede || "Bogota",
-                    franquicia: getFranchise(),
-                    nroCuotas: tipo === "PSE" ? 1 : parseInt(cuotas),
-                    userid: parseInt(localStorage.getItem('user') || "1"),
-                    metodoId: parseInt(id), 
+            if(stage === 6){
+                Swal.fire({
+                    title: 'Transaction completed successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    showLoaderOnConfirm: true,
+                }).then((res) => {
+                    navigate('/profile');
                 })
             }
         }
@@ -98,8 +119,7 @@ export default function Facturacion() {
 
     const bill = JSON.parse(localStorage.getItem('bill') || '{}');
 
-    const {company, orderNumber, product, total} = bill;
-    const {cardNumber, cvc, expire, id, tipo} = location.state.paymentMethod;
+    const {company, orderNumber, product} = bill;
 
     return (
         <div className="OrderProgress">
@@ -132,7 +152,7 @@ export default function Facturacion() {
                             <Text color="rgba(255,255,255,0.6)">Productos</Text>
                             <Text>{product}</Text>
                             <Text color="rgba(255,255,255,0.6)">Total</Text>
-                            <Text>{total}</Text>
+                            <Text>{amount}</Text>
                         </SimpleGrid>
                     </Container>
                 </GridItem>
@@ -163,9 +183,6 @@ export default function Facturacion() {
                             <FontAwesomeIcon color={stage >= 6 ? "green" : "black" } icon={faCheckCircle}></FontAwesomeIcon>
                         </div>
                     </Container>
-                    <Button disabled={stage >= 5 ? true : false} style={{alignSelf:'flex-end',marginBottom:"-100px"}}boxShadow='2xl' bgColor={'#e60000'} color='white' width='100%' padding='4px' size='lg'>
-                        <b>Cancelar</b>
-                    </Button>
                 </GridItem>
             </Grid>
         </div>)

@@ -7,6 +7,7 @@ import { faCreditCard } from '@fortawesome/free-regular-svg-icons'
 import { useNavigate } from "react-router-dom";
 import { queries_api } from "../utils/axios-apis";
 import Swal from "sweetalert2";
+import { setUncaughtExceptionCaptureCallback } from "process";
 
 export default function PaymentForm({onChange}: {onChange: any}) {
 
@@ -36,20 +37,34 @@ export default function PaymentForm({onChange}: {onChange: any}) {
     }
 
     const sendTo = async () => {
+        let tipo = "";
         if((number.length === 16 || number.length === 15) && (expiryMM.length === 2 && +expiryMM >= 1 && +expiryMM <= 12) && expiryYY.length === 2 && (cvc.length === 3 || cvc.length === 4)){
             if(checkCard()){
-                await queries_api.post('/api/metodos/',{
-                    id : localStorage.getItem('user'),
-                    nombre: "Tarjeta de crédito",
-                    saldo: 0 || undefined,
-                    userId: localStorage.getItem('user'),
-                    bancoId: bank,
-                    tipo: getFranchise(),
-                    numero: number,
-                    CVC: cvc,
-                }).then((res) => {
-                    navigate("/profile");
-                })
+                Swal.fire({
+                    title: 'Enter the type of card',
+                    input: 'select',
+                    inputOptions: {
+                        Debit: "Debit",
+                        Credit: "Credit"
+                    },
+                    inputPlaceholder: "Credit",
+                    showCancelButton: false,
+                }).then(async (res) => {
+                    console.log(res);
+                    tipo = res.value === "Debit" ? "PSE" : getFranchise() || "PSE";
+                    await queries_api.post('/api/metodos/',{
+                        id : localStorage.getItem('user'),
+                        nombre: "Tarjeta de crédito",
+                        saldo: 0 || undefined,
+                        userId: localStorage.getItem('user'),
+                        bancoId: bank,
+                        tipo: tipo,
+                        numero: number,
+                        CVC: cvc,
+                    }).then((res) => {
+                        navigate("/profile");
+                    })
+                });  
             }else{
                 Swal.fire({
                     icon: 'error',

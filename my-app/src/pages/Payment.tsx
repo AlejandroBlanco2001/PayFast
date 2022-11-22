@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PaymentForm from '../components/PaymentForm';
 import Bill from "../components/Bill";
 import Swal from 'sweetalert2';
@@ -32,7 +32,6 @@ export default function Payment() {
         }
         return "error_data";        
     }
-
 
     const sendToProcess = () => {
         buy_api.post('/api/transaccion').then((res) => {
