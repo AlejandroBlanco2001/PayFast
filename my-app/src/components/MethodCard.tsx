@@ -2,26 +2,26 @@ import React from 'react';
 import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import {queries_api} from "../utils/axios-apis";
 
-const api = axios.create({
-    withCredentials: true,
-})
-export default function MethodCard(props: {number: string, id: string}){
+export default function MethodCard(props: {number: string, id: string, tipo: string}){
+    const navigate = useNavigate();
 
     let master_card_logo = "https://www.freepnglogos.com/uploads/mastercard-png/mastercard-logo-mastercard-logo-png-vector-download-19.png";
-    let visa_logo = "https://www.freepnglogos.com/uploads/visa-card-logo-9.png";
+    let visa_logo = "https://www.freepnglogos.com/uploads/visa-blue-png-2.png";
     let american_express_logo = "https://logodownload.org/wp-content/uploads/2014/04/amex-american-express-logo-0.png";
     
-    const {number, id} = props;
+    const {number, id, tipo} = props;
 
     const getLogo = () => {
         const id = props.number.substring(0,1);
+        if(tipo === "PSE") return "https://seeklogo.com/images/P/pse-logo-4AE3A79534-seeklogo.com.png";
         switch(id){
             case '2':
                 case '5':
                     return master_card_logo;
-            case '3':
+            case '4':
                 return visa_logo;
             default:
                 return american_express_logo;
@@ -35,10 +35,11 @@ export default function MethodCard(props: {number: string, id: string}){
     };
 
     const checkCreditAvailable = async () => {
-        await api.get(`http://localhost:8080/api/metodos/${id}`).then((res) => {
+        await queries_api.get(`/api/metodos/${id}`).then((res) => {
+            const balance = res.data.metodo.saldo || 0; 
             Swal.fire({
                 title: 'Credit available',
-                text: `Your credit available is: ${res.data.balance}`,
+                text: `Your credit available is: ${balance}`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
             });
@@ -56,20 +57,26 @@ export default function MethodCard(props: {number: string, id: string}){
 
     const payWithThis = async () => {
         await Swal.fire({
-            title: 'Are you sure?',
-            text: "You want to pay this this method?",
-            icon: 'warning',
+            title: 'Enter the amount to pay',
+            input: 'number',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, use it!'
+            confirmButtonText: 'Pay',
+            showLoaderOnConfirm: true,
             }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                'Proceeding to pay!'
-                )
-            }
-        })
+                if(result.isConfirmed){
+                    if(result.value !== ""){
+                        localStorage.setItem('amount', result.value);
+                        navigate('/facturation',{ state: { paymentMethod:{cardNumber: number , id: id, tipo: tipo} } });
+                    }else{
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: 'You must enter a value',
+                            icon: 'error',
+                            confirmButtonText: ':('
+                        })
+                    }
+                }
+            })
     }
 
     return (

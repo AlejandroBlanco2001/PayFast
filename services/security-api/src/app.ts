@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 8000);
 app.use(
   cors({
     credentials: true,
-    origin: "https://pay-fast-ten.vercel.app"
+    origin: ["https://pay-fast-ten.vercel.app", "http://localhost:3000"],
   })
 );
 
@@ -30,6 +30,8 @@ app.use('/api/users', userRoutes);
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  return console.log(`Security API is listening at http://localhost:${process.env.PORT || 3000}`);
+app.listen(process.env.PORT || 8000, () => {
+  return console.log(
+    `Security API is listening at http://localhost:${process.env.PORT || 8000}`
+  );
 });

@@ -163,6 +163,25 @@ code {
 
 }
 
+.buttonProfile{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.step {
+    display: flex ;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+}
+
+.OrderProgress{
+    margin-top: 120px;
+}
+
 .info-container{    
     font-family: "Roboto";
 
@@ -195,7 +214,7 @@ code {
     align-items: center;
     
     button{
-        width: 50%;
+        width: 30%;
     }
 }
 

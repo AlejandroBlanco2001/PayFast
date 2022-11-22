@@ -9,16 +9,16 @@ function Items(props: {currentItems: any, type: Number}) {
 
     return (
         <div className="items">
-        {currentItems && currentItems.map((data,index) => (
+        {currentItems && currentItems.map((data,index) => {return (
         <div className="item">
             {type === 1 
-            ? <RowTransaction key={index} isHeader={false} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
-                    monto={data['monto']} nroCoutas={data['nroCoutas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
-            : <MethodCard key={index} number={data.numero} id={data.id}></MethodCard>
+            ? <RowTransaction key={data.id} isHeader={false} id={data['id']} estado={data['estado']} fecha={data['fecha']} franquicia={data['franquicia']} 
+                    monto={data['monto']} nroCuotas={data['nroCuotas']} sede={data['sede']} userId={data['userId']} metodoId={data['metodoId']}></RowTransaction>
+            : <MethodCard key={data.id} number={data.numero} id={data.id} tipo={data.tipo}></MethodCard>
             }
 
         </div>
-        ))}
+        )})}
         </div>
     );
 }

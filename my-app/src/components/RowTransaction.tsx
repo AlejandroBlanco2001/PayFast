@@ -6,14 +6,14 @@ export default function RowTransaction(props: {
     monto: string,
     sede: string,
     franquicia: string,
-    nroCoutas: string,
+    nroCuotas: string,
     userId: string,
     metodoId: string,
     estado: string,
     isHeader : boolean,
 }){
 
-    const {id, fecha, monto, sede, franquicia, nroCoutas, userId, metodoId, estado, isHeader} = props;
+    const {id, fecha, monto, sede, franquicia, nroCuotas, userId, metodoId, estado, isHeader} = props;
 
     const isaHeader = () => {
         if(isHeader === true){
@@ -34,11 +34,11 @@ export default function RowTransaction(props: {
         return (            
             <div className="row">
                 <div>{id}</div>
-                <div>{fecha}</div>
+                <div>{fecha.substring(0,10)}</div>
                 <div>{monto}</div>
                 <div>{sede}</div>
                 <div>{franquicia}</div>
-                <div>{nroCoutas}</div> 
+                <div>{nroCuotas}</div> 
                 <div>{userId}</div>
                 <div>{metodoId}</div>
                 <div>{estado}</div>

@@ -1,6 +1,6 @@
 import {security_api, buy_api, queries_api} from '../utils/axios-apis';
 import React, {useState, useEffect} from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ProfileCard from '../components/ProfileCard';
 import PaymentTable  from '../components/PaymentTable';
@@ -16,8 +16,7 @@ function getRandomInt(min, max) : number{
 export default function Profile(){
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const id = location.state.user_id;
+    const id = localStorage.getItem('user');
 
     const [user, setUser] = useState({});
     const [transactions, setTransactions] = useState([]);
@@ -29,19 +28,18 @@ export default function Profile(){
     useEffect(()  => {
         // Get the user data
         security_api.get(`/api/users/${id}`).then(async (res) => {
-            localStorage.setItem('user', id);
             setUser(res.data.user);
         });
         // Get random image of the username
         security_api.get('https://avatars.dicebear.com/api/miniavs/elpapitodelbackend.svg', {withCredentials: false}).then((res) => setAvatar(res.data))
         // Get payment methods of the user 
-        queries_api.get('/api/metodos/user', { params: {
+        queries_api.get(`/api/metodos/user/${id}`, { params: {
             "id" : id
-        }}).then((res) => setTransactions(res.data));
+        }}).then((res) => {setMethods(res.data['metodos_disponibles'])});
         // Get transactions of the user
         buy_api.get(`/api/transaccion/user/${id}`, { params: {
             "id": id    
-        }}).then((res) => {setMethods(res.data)});
+        }}).then((res) => {console.log('transacciones', res.data);setTransactions(res.data['transacciones'])});
     },[])
 
     const bill = {
@@ -51,6 +49,9 @@ export default function Profile(){
         "total": getRandomInt(1000000,32000000),
     }
 
+    //save the bill in local storage
+    localStorage.setItem('bill', JSON.stringify(bill));
+
     return (
         <div className="profile">
             <div className="profile-section">
@@ -58,7 +59,13 @@ export default function Profile(){
                 <PaymentTable transactions={transactions} ></PaymentTable>
                 <MethodsTable methods={methods}></MethodsTable>
             </div>
-            <Button colorScheme='linkedin' onClick={() => navigate('/payment', {state: {"bill": bill}}) }>Add new payment method</Button>
+            <div className="buttonProfile">
+                <Button colorScheme='red' onClick={() => {
+                    localStorage.clear();
+                    navigate('/'); 
+                    }}>Log out</Button>
+                <Button colorScheme='linkedin' onClick={() => navigate('/payment', {state: {"bill": bill}}) }>Add new payment method</Button>                
+            </div>
         </div>
     )
 }

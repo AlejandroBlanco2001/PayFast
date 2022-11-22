@@ -4,8 +4,12 @@ import { Input, InputGroup, Button, Text } from '@chakra-ui/react';
 import { Select } from '@chakra-ui/react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard } from '@fortawesome/free-regular-svg-icons'
+import { useNavigate } from "react-router-dom";
+import { queries_api } from "../utils/axios-apis";
+import Swal from "sweetalert2";
+import { setUncaughtExceptionCaptureCallback } from "process";
 
-export default function PaymentForm({onChange, sendTo}: {onChange: any, sendTo: any}) {
+export default function PaymentForm({onChange}: {onChange: any}) {
 
     const [number, setNumber] = useState('');
     const [expiryMM, setExpiryMM] = useState('');
@@ -13,15 +17,68 @@ export default function PaymentForm({onChange, sendTo}: {onChange: any, sendTo: 
     const [cvc, setCVC] = useState('');
     const [dynamic, setdynamic] = useState('');
     const [show, setShow] = React.useState(false);
+    const [bank, setBank] = useState('1');
 
+    const navigate = useNavigate();
     const handleClick = () => setShow(!show);
 
+    const checkCard = () => number.substring(0,1) === "3" || number.substring(0,1) === "4" || number.substring(0,1) === "5" ? true : false;
+    const getFranchise = () => {
+        if(number.substring(0,1) === "3") return "AmericanExpress";
+        if(number.substring(0,1) === "4") return "Visa";
+        if(number.substring(0,1) === "5") return "Mastercard";
+    }
     /* Tomado de: https://stackoverflow.com/questions/64573035/type-dispatchsetstateactionany-is-not-assignable-to-type-values-stri */
     function withEvent(func: Function): React.ChangeEventHandler<any> {
         return (event: React.ChangeEvent<any>) => {
             const { target } = event;
             func(target.value);
         };
+    }
+
+    const sendTo = async () => {
+        let tipo = "";
+        if((number.length === 16 || number.length === 15) && (expiryMM.length === 2 && parseInt(expiryMM) >= 1 && parseInt(expiryMM) <= 12) && (expiryYY.length === 2 && parseInt(expiryYY) >= 22) && (cvc.length === 3 || cvc.length === 4)){
+            if(checkCard()){
+                Swal.fire({
+                    title: 'Enter the type of card',
+                    input: 'select',
+                    inputOptions: {
+                        Debit: "Debit",
+                        Credit: "Credit"
+                    },
+                    inputPlaceholder: "Enter the type",
+                    showCancelButton: false,
+                }).then(async (res) => {
+                    console.log(res);
+                    tipo = res.value === "Debit" ? "PSE" : getFranchise() || "PSE";
+                    await queries_api.post('/api/metodos/',{
+                        id : localStorage.getItem('user'),
+                        nombre: "Tarjeta de crédito",
+                        saldo: 0 || undefined,
+                        userId: localStorage.getItem('user'),
+                        bancoId: bank,
+                        tipo: tipo,
+                        numero: number,
+                        CVC: cvc,
+                    }).then((res) => {
+                        navigate("/profile");
+                    })
+                });  
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The type of card is invalid, must be Visa, MasterCard or American Express',
+                })
+            }
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'The data entered is invalid',
+            })
+        }
     }
 
     useEffect(() => {
@@ -183,17 +240,17 @@ export default function PaymentForm({onChange, sendTo}: {onChange: any, sendTo: 
                 <GridItem colSpan={5} colStart={3} colEnd={7} gridRowStart={4} >
                     <div className="Payment">
                         <h4>
-                            <Select id="selectBank" placeholder='Select option'>
-                                <option value='0'>East Bank</option>
-                                <option value='1'>Western Bank</option>
+                            <Select id="selectBank" placeholder='Select option' onChange={(event) => setBank(event.target.value) }>
+                                <option value='1'>East Bank</option>
+                                <option value='2'>Western Bank</option>
                             </Select>
                         </h4>
                     </div>
                 </GridItem>
 
                 <GridItem gridRowStart={5} colStart={1} colEnd={7} >
-                    <Button boxShadow='2xl' bgColor={'#6ffd69'} color='white' width='100%' padding='4px' size='lg' onClick={sendTo}>
-                        <b>Pay Now</b>
+                    <Button boxShadow='2xl' bgColor={'#6ffd69'} color='white' width='100%' padding='4px' size='lg' onClick={async () => sendTo()}>
+                        <b>Add method</b>
                     </Button>
                 </GridItem>
             </Grid>
