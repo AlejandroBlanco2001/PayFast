@@ -8,13 +8,24 @@ enum Estado {
     Rechazado = 'Rechazado',
 }
 
-export const createTransaccion = async (req: express.Request,res: express.Response,next: express.NextFunction) => {
-  //Monto mayor a 0
-    if (req.body.monto <= 0) {
-        return res.status(400).json({ message: "Monto must be greater than 0" });
+export const createTransaccion = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    //Circuit breaker
+    const cb = await prisma.cbtransaccion.create({
+            data: {
+                monto: req.body.monto,
+                sede: req.body.sede,
+                franquicia: req.body.franquicia,
+                nroCuotas: req.body.nroCuotas,
+                userId: req.body.userid,
+                metodoId: req.body.metodoId,
+            },
+        });
+    //Monto mayor a 0
+    if(req.body.monto <= 0) {
+        return res.status(400).json({message: "Monto must be greater than 0"});
     }
-    let message = "succesful";
-    //Verificar el estado del mÃ©todo de pago
+    let message = "succesful"
+    //Verificar el estado del método de pago
     let estado = Estado.Aprobado;
     try {
         //verificar estado de metodo de pago
@@ -26,7 +37,7 @@ export const createTransaccion = async (req: express.Request,res: express.Respon
 
         if (!metodo.estado) {
             estado = Estado.Rechazado;
-            message = "Payment Method not active";
+            message="Payment Method not active"
         }
             
 
@@ -46,7 +57,7 @@ export const createTransaccion = async (req: express.Request,res: express.Respon
         //verificar saldo
         if (metodo.saldo < req.body.monto) {
             estado = Estado.Rechazado;
-            message = "Insufficient balance";
+            message = "insufficient balance"
         }
 
         const transaccion = await prisma.transaccion.create({
@@ -73,7 +84,13 @@ export const createTransaccion = async (req: express.Request,res: express.Respon
             },
         });
         }
-        res.status(201).json({ transaccion, message });
+        await prisma.cbtransaccion.delete({
+            where: {
+                id: cb.id,
+            },
+        });
+
+        res.status(201).json({transaccion, message});
     } catch (err) {
         next(err);
     }
